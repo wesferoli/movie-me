@@ -21,14 +21,6 @@ model User {
   Review Review[]
 }
 
-model Movie {
-  id Int @id
-
-  title String
-
-  Review Review[]
-}
-
 model Review {
   id      String @id @default(uuid())
   userId  String
@@ -38,6 +30,5 @@ model Review {
   description String
   rating      String
 
-  user  User  @relation(fields: [userId], references: [id])
-  movie Movie @relation(fields: [movieId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 }
