@@ -28,11 +28,9 @@ const handler = NextAuth({
             login: id,
           },
         });
-
-        return true;
       }
 
-      return false;
+      return true;
     },
   },
 });

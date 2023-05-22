@@ -6,7 +6,7 @@ export function Session() {
   const { data: session } = useSession();
 
   if (!session) {
-    return <button onClick={() => signIn()}>Sign in</button>;
+    return <button onClick={() => signIn("github")}>Sign in</button>;
   }
 
   return (
