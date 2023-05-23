@@ -1,10 +1,20 @@
+import NextAuth, { Session } from "next-auth";
+import type { NextAuthOptions } from "next-auth";
 import prisma from "@/lib/prisma";
-import NextAuth from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
-import { z } from "zod";
 import { signInSchema } from "./schema";
 
-const handler = NextAuth({
+export interface IUser {
+  email?: string | null;
+  name?: string | null;
+  image?: string | null;
+}
+
+interface IAppSession extends Session {
+  user?: IUser;
+}
+
+export const authOptions: NextAuthOptions = {
   providers: [
     GitHubProvider({
       clientId: String(process.env.GITHUB_ID),
@@ -32,7 +42,13 @@ const handler = NextAuth({
 
       return true;
     },
+
+    async session({ session }) {
+      return session as IAppSession;
+    },
   },
-});
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
