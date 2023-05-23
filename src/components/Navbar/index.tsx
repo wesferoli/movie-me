@@ -1,43 +1,24 @@
-"use client";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import Profile from "../User/Profile";
+import SignIn from "../User/SignIn";
 
-import { movieDBToken } from "@/utils/constant";
-import { ReactElement, useState } from "react";
-
-interface INavbarProps {
-  children: ReactElement;
-}
-
-const getMovie = async () => {
-  const response = await fetch("https://api.themoviedb.org/3/movie/551", {
-    headers: {
-      Authorization: `Bearer ${movieDBToken}`,
-    },
-    method: "GET",
-  });
-
-  return response.json();
-};
-
-export default function Navbar({ children }: INavbarProps) {
-  const [movie, setMovie] = useState();
-
-  const showMovie = async () => {
-    const data = await getMovie();
-    setMovie(data);
-  };
+export default async function Navbar() {
+  const session = await getServerSession(authOptions);
 
   return (
-    <nav>
-      {children}
-      <button
-        className="ml-1 rounded px-3 py-1 outline outline-gray-50"
-        onClick={showMovie}
-      >
-        List Movie
-      </button>
-      <pre>
-        <p>{movie && JSON.stringify(movie, null, 2)}</p>
-      </pre>
+    <nav className="flex h-14 items-center justify-between bg-yellow-500 px-24">
+      <p className="text-3xl font-bold text-black">MovieMe</p>
+      <input
+        type="text"
+        placeholder="Find by title or category"
+        className="h-10 rounded-full px-4 text-black placeholder:text-gray-200"
+      />
+      {session?.user ? (
+        <Profile avatarUrl={session?.user?.image || ""} />
+      ) : (
+        <SignIn />
+      )}
     </nav>
   );
 }
