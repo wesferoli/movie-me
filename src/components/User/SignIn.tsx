@@ -10,10 +10,12 @@ export default function SignIn() {
         onClick={() => signIn("github")}
         className="flex items-center space-x-2"
       >
-        <div className="relative flex h-10 w-10 items-center justify-center rounded-full border-2 border-neutral-50 bg-gray-400">
-          <Github className="h-5 w-5 text-neutral-50" />
+        <div className="relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-neutral-50 bg-gray-400 md:h-10 md:w-10">
+          <Github className="h-4 w-4 text-neutral-50 md:h-6 md:w-6" />
         </div>
-        <span className="text-sm font-semibold text-neutral-900">Sign in</span>
+        <span className="hidden text-xs font-semibold text-neutral-900 md:inline md:text-sm">
+          Sign in
+        </span>
       </button>
     </div>
   );

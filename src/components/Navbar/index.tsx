@@ -2,23 +2,24 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import Profile from "../User/Profile";
 import SignIn from "../User/SignIn";
+import SearchBar from "./SearchBar";
 
 export default async function Navbar() {
   const session = await getServerSession(authOptions);
 
   return (
-    <nav className="flex h-14 items-center justify-between bg-yellow-500 px-24">
-      <p className="text-3xl font-bold text-black">MovieMe</p>
-      <input
-        type="text"
-        placeholder="Find by title or category"
-        className="h-10 rounded-full px-4 text-black placeholder:text-gray-200"
-      />
-      {session?.user ? (
-        <Profile avatarUrl={session?.user?.image || ""} />
-      ) : (
-        <SignIn />
-      )}
+    <nav className="relative grid h-10 grid-cols-8 items-center bg-yellow-500 px-4 sm:px-10 md:h-14 lg:px-24">
+      <p className="col-start-1 col-end-3 hidden text-xl font-bold text-black sm:inline md:text-2xl lg:text-3xl">
+        MovieMe
+      </p>
+      <SearchBar />
+      <div className="col-start-7 col-end-9 flex justify-end">
+        {session?.user ? (
+          <Profile avatarUrl={session?.user?.image || ""} />
+        ) : (
+          <SignIn />
+        )}
+      </div>
     </nav>
   );
 }
