@@ -4,7 +4,7 @@ import LinkedinIcon from "public/linkedin.png";
 
 export default function Footer() {
   return (
-    <footer className="absolute bottom-0 w-full border-t-2 border-yellow-500 bg-neutral-700 px-4 sm:px-10 sm:py-2 lg:px-24">
+    <footer className="w-full border-t-2 border-yellow-500 bg-neutral-700 px-4 sm:px-10 sm:py-2 lg:px-24">
       <div className="grid grid-cols-1 divide-yellow-500 text-sm max-sm:divide-y sm:grid-cols-8 sm:divide-x sm:py-2 md:text-base">
         <div className="flex items-center justify-center gap-6 py-4 sm:col-span-2 sm:px-4 lg:gap-10">
           <a href="https://github.com/wesferoli" target="_blank">
