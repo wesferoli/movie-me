@@ -3,23 +3,30 @@ import { posterURL } from "@/utils/constant";
 import { NextResponse } from "next/server";
 import { IPopularMDB, MovieList } from "./types";
 import { movieDBListSchema } from "./schema";
+import { errorHandler } from "@/middleware/api/errorHandler";
 
 export async function GET() {
-  const { data: popularMovies } = await movieDBApi.get<IPopularMDB>(
-    "/movie/popular"
-  );
-  const filterMovies: MovieList = movieDBListSchema.parse(
-    popularMovies.results
-  );
+  try {
+    const popularMovies = await movieDBApi.get<IPopularMDB>("/movie/popular");
+    if (!popularMovies) {
+      throw new Error("Unable to list movies.");
+    }
 
-  // Add valid poster url
-  filterMovies.map((movie) => {
-    Object.assign(movie, {
-      poster: `${posterURL}${movie.poster}`,
+    const filterMovies: MovieList = movieDBListSchema.parse(
+      popularMovies.data.results
+    );
+
+    // Add valid poster url
+    filterMovies.map((movie) => {
+      Object.assign(movie, {
+        poster: `${posterURL}${movie.poster}`,
+      });
+
+      return movie;
     });
 
-    return movie;
-  });
-
-  return NextResponse.json(filterMovies);
+    return NextResponse.json({ data: filterMovies });
+  } catch (error) {
+    return errorHandler(error);
+  }
 }
