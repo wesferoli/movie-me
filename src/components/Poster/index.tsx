@@ -18,7 +18,7 @@ export default function Poster({
     <div className="relative w-max shadow-[0_0_15px_-3px] shadow-yellow-500">
       <Link href={`/movie/${movieId}`}>
         <Image
-          className="w-40 sm:w-[180px] md:w-[200px] lg:w-[230px]"
+          className="min-w-[160px] max-w-[210px] md:max-w-[230px]"
           alt={title}
           src={posterUrl}
           width={500}
