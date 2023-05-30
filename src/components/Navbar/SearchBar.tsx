@@ -16,7 +16,7 @@ export default function SearchBar() {
       </button>
       {/* Mobile search input */}
       {showInput && (
-        <div className="absolute top-[100%] w-full items-center justify-center bg-yellow-500 px-4 py-1 text-sm sm:hidden">
+        <div className="absolute top-[100%] z-10 w-full items-center justify-center bg-yellow-500 px-4 py-1 text-sm sm:hidden">
           <input
             name="search"
             type="text"
