@@ -33,6 +33,14 @@ module.exports = {
           900: "#121215",
         },
       },
+      dropShadow: { text: "0px 0px 7px rgba(0, 0, 0, 0.75)" },
+      boxShadow: {
+        poster: "0px 0px 20px -3px #F8D98B",
+      },
+      backgroundImage: {
+        gradientYellow:
+          "linear-gradient(to bottom, rgba(0, 0, 0, 0) 47.51%, rgba(248, 217, 139, 0.8) 100%, transparent)",
+      },
     },
   },
   plugins: [],
