@@ -5,13 +5,8 @@ import SignIn from "../User/SignIn";
 import SearchBar from "./SearchBar";
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 
-async function getSession() {
+export default async function Navbar() {
   const session = await getServerSession(authOptions);
-  return session;
-}
-
-export default function Navbar() {
-  const session = use(getSession());
 
   return (
     <nav className="relative grid h-10 grid-cols-8 items-center bg-yellow-500 px-4 sm:px-10 md:h-14 lg:px-24">
