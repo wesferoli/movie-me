@@ -1,3 +1,6 @@
+import { z } from "zod";
+import { movieDetailsSchema } from "./schema";
+
 interface MDBMovieDetailsCreditsCrew {
   adult: boolean;
   gender: number;
@@ -51,7 +54,7 @@ interface MDBMovieDetailsGenres {
   name: string;
 }
 
-interface MDBMovieDetails {
+export interface MDBMovieDetails {
   adult: boolean;
   backdrop_path: string;
   belongs_to_collection: string | null;
@@ -78,4 +81,8 @@ interface MDBMovieDetails {
   vote_average: number;
   vote_count: number;
   credits: MDBMovieDetailsCredits;
+}
+
+export interface IMovieDetails extends z.infer<typeof movieDetailsSchema> {
+  rating: number | null;
 }
