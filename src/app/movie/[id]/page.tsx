@@ -1,11 +1,8 @@
 import { IMovieDetails } from "@/app/api/movie/[id]/types";
+import { IRouteParams } from "@/app/api/types";
 import { api } from "@/lib/api";
 
-export interface IMovieDetailsProps {
-  params: { id: string };
-}
-
-export default async function MovieDetails({ params }: IMovieDetailsProps) {
+export default async function MovieDetails({ params }: IRouteParams) {
   const { id } = params;
   const { data: movie } = await api
     .get<{ data: IMovieDetails }>(`/movie/${id}`)
