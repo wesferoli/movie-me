@@ -1,12 +1,12 @@
-import { IMovieDetailsProps } from "@/app/movie/[id]/page";
 import { movieDBApi } from "@/lib/api";
 import { NextResponse } from "next/server";
 import { movieDetailsSchema } from "./schema";
 import prisma from "@/lib/prisma";
 import { MDBMovieDetails, IMovieDetails } from "./types";
 import { errorHandler } from "@/middleware/api/errorHandler";
+import { IRouteParams } from "../../types";
 
-export async function GET(request: Request, { params }: IMovieDetailsProps) {
+export async function GET(request: Request, { params }: IRouteParams) {
   try {
     const { id } = params;
     const movie = await movieDBApi
