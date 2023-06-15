@@ -4,6 +4,7 @@ import { movieDetailsSchema } from "./schema";
 import prisma from "@/lib/prisma";
 import { MDBMovieDetails, IMovieDetails } from "./types";
 import { errorHandler } from "@/middleware/api/errorHandler";
+import { posterURL } from "@/utils/constant";
 import { IRouteParams } from "../../types";
 
 export async function GET(request: Request, { params }: IRouteParams) {
@@ -29,6 +30,7 @@ export async function GET(request: Request, { params }: IRouteParams) {
     const movieDetails: IMovieDetails = {
       ...filteredMovieDetails,
       rating: averageRating.rating,
+      poster: `${posterURL}${filteredMovieDetails.poster}`,
     };
 
     return NextResponse.json({ data: movieDetails });
