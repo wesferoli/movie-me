@@ -2,19 +2,23 @@ import { api } from "@/lib/api";
 import ReviewCard from "../ReviewCard";
 import { ReviewList } from "@/app/api/review/types";
 import Link from "next/link";
+import { use } from "react";
 
 interface IReviewsListProps {
   className?: string;
   movieId: number;
 }
 
-export default async function ReviewsList({
-  className,
-  movieId,
-}: IReviewsListProps) {
-  const { data: movieReviews } = await api
+async function getMovieReviews(movieId: number) {
+  const { data } = await api
     .get<{ data: ReviewList }>(`/movie/${movieId}/review`)
     .then((resp) => resp.data);
+
+  return data;
+}
+
+export default function ReviewsList({ className, movieId }: IReviewsListProps) {
+  const movieReviews = use(getMovieReviews(movieId));
 
   return (
     <div className={className}>
