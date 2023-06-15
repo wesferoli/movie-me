@@ -86,3 +86,6 @@ export interface MDBMovieDetails {
 export interface IMovieDetails extends z.infer<typeof movieDetailsSchema> {
   rating: number | null;
 }
+export type IMovieDetailsGenres = IMovieDetails["genres"];
+export type IMovieDetailsCast = IMovieDetails["cast"];
+export type IMovieDetailsCrew = IMovieDetails["crew"];
