@@ -23,7 +23,7 @@ export default function Footer() {
           </a>
         </div>
         <div className="flex items-center justify-center py-4 sm:col-span-4 sm:px-4">
-          <span className="text-center">
+          <span className="text-center" data-testid="icons-credits">
             Icons created by{" "}
             <a
               href="https://www.flaticon.com/authors/freepik"
@@ -36,7 +36,7 @@ export default function Footer() {
           </span>
         </div>
         <div className="flex items-center justify-center py-4 sm:col-span-2 sm:px-4">
-          <span className="text-center">
+          <span className="text-center" data-testid="see-on-github">
             See this project on{" "}
             <a
               href="https://github.com/wesferoli/movie-me"
