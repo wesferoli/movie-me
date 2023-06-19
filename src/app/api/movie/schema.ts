@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { DateTime } from "luxon";
+import { getYear } from "@/utils/getYear";
 
 export const movieDBListSchema = z.array(
   z
@@ -14,7 +14,7 @@ export const movieDBListSchema = z.array(
 
       return {
         ...rest,
-        releaseYear: DateTime.fromISO(release_date).year.toString(),
+        releaseYear: getYear(release_date),
         poster: poster_path,
       };
     })

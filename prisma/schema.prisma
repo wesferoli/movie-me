@@ -31,7 +31,7 @@ model Review {
 
   title       String
   description String
-  rating      String
+  rating      Float
 
   user User @relation(fields: [userId], references: [id])
 }

@@ -20,6 +20,14 @@ export function errorHandler(err: any) {
     );
   }
 
+  //Axios error
+  if (err?.name === "AxiosError") {
+    return NextResponse.json(
+      { type: err.name, details: err?.response?.data },
+      { status: err?.response?.status || statusCode }
+    );
+  }
+
   // Generic error cases
   console.error(err);
   return NextResponse.json(err, {
