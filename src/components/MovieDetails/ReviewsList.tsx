@@ -9,16 +9,13 @@ interface IReviewsListProps {
   movieId: number;
 }
 
-async function getMovieReviews(movieId: number) {
-  const { data } = await api
+export default async function ReviewsList({
+  className,
+  movieId,
+}: IReviewsListProps) {
+  const { data: movieReviews } = await api
     .get<{ data: ReviewList }>(`/movie/${movieId}/review`)
     .then((resp) => resp.data);
-
-  return data;
-}
-
-export default function ReviewsList({ className, movieId }: IReviewsListProps) {
-  const movieReviews = use(getMovieReviews(movieId));
 
   return (
     <div className={className}>
