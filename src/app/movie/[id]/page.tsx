@@ -15,9 +15,9 @@ export default async function MovieDetails({ params }: IRouteParams) {
     .then((resp) => resp.data);
 
   return (
-    <div className="mx-4 my-8 rounded-lg border border-yellow-500 bg-neutral-700 p-2 md:mx-10 md:grid md:grid-cols-12 md:gap-x-4 md:p-4 lg:mx-24 lg:my-10 lg:p-10 xl:gap-x-8 xl:p-16">
+    <div className="mx-4 my-8 max-w-[1136px] rounded-lg border border-yellow-500 bg-neutral-700 p-2 md:mx-10 md:grid md:grid-cols-12 md:gap-x-4 md:p-4 lg:mx-24 lg:my-10 lg:p-10 xl:gap-x-8 xl:p-16">
       {/* Movie poster */}
-      <section className="pb-3 md:col-span-3 md:pb-4">
+      <section className="border-b-2 border-yellow-500 pb-3 md:col-span-3 md:border-none md:pb-4">
         <MoviePoster
           movieId={movie.id}
           posterUrl={movie.poster}

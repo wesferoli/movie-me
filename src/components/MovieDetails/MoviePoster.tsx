@@ -36,7 +36,7 @@ export default function MoviePoster({
   const router = useRouter();
 
   return (
-    <div className="flex flex-col items-center justify-center border-b-2 border-yellow-500 md:justify-start md:border-none">
+    <div className="flex flex-col items-center justify-center md:justify-start">
       <Image
         className="max-w-[160px] md:w-full md:max-w-[200px] xl:max-w-[225px] 2xl:max-w-[250px]"
         alt="Movie image"
@@ -57,7 +57,8 @@ export default function MoviePoster({
         icon={
           <Plus className="mr-2 h-4 w-4 text-center text-sm lg:text-base" />
         }
-        className="mt-2 flex min-w-[160px] items-center justify-center rounded-full border border-black bg-yellow-600 p-1.5 text-center text-sm font-medium text-black lg:text-base"
+        className="mt-2 min-w-[160px]"
+        variant="primary"
       >
         Add review
       </Button>
