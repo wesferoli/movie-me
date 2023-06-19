@@ -6,7 +6,7 @@ interface IButtonProps {
   variant?: "primary";
 }
 
-const variants = {
+export const variants = {
   primary:
     "rounded-full border border-black bg-yellow-600 p-1.5 text-sm font-medium text-black lg:text-base",
 };
