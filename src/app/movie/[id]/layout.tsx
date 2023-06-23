@@ -1,3 +1,10 @@
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return <main className="flex justify-center">{children}</main>;
+  return (
+    <html>
+      <head></head>
+      <body>
+        <main className="flex justify-center">{children}</main>
+      </body>
+    </html>
+  );
 }

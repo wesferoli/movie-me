@@ -3,7 +3,7 @@ import { Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-interface IReviewCardProps {
+export interface IReviewCardProps {
   reviewId: string;
   movieId: number;
   userAvatar: string;
@@ -21,7 +21,10 @@ export default function ReviewCard({
   rating,
 }: IReviewCardProps) {
   return (
-    <Link href={`/movie/${movieId}/review/${reviewId}`}>
+    <Link
+      href={`/movie/${movieId}/review/${reviewId}`}
+      data-testid="review-card"
+    >
       <div className="flex w-full items-center justify-between gap-2 rounded-lg border border-yellow-500 px-1 py-2 text-sm md:px-3 lg:text-base">
         <div className="flex items-center">
           <Image

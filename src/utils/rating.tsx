@@ -10,6 +10,7 @@ export default function generateRatingStars(rating: number) {
         <Star
           className="mr-0.5 h-5 w-5 fill-yellow-600 text-yellow-600"
           key={i}
+          data-testid="full-star"
         />
       );
     } else {
@@ -17,6 +18,7 @@ export default function generateRatingStars(rating: number) {
         <StarHalf
           className="mr-1 h-5 w-5 fill-yellow-600 text-yellow-600"
           key={i}
+          data-testid="half-star"
         />
       );
     }
