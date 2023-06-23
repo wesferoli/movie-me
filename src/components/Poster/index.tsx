@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-interface IPosterProps {
+export interface IPosterProps {
   posterUrl: string;
   title: string;
   releaseYear: string;
@@ -21,8 +21,8 @@ export default function Poster({
           className="min-w-[160px] max-w-[210px] md:max-w-[230px]"
           alt={title}
           src={posterUrl}
-          width={500}
-          height={750}
+          width={230}
+          height={345}
         />
         <div className="absolute bottom-0 h-full w-full bg-gradientYellow transition delay-100 ease-in-out hover:opacity-100 md:opacity-0">
           <div className="absolute bottom-4 left-3 right-3">

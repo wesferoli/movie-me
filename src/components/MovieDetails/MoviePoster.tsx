@@ -41,8 +41,8 @@ export default function MoviePoster({
         className="max-w-[160px] md:w-full md:max-w-[200px] xl:max-w-[225px] 2xl:max-w-[250px]"
         alt="Movie image"
         src={posterUrl}
-        width={500}
-        height={600}
+        width={225}
+        height={340}
       />
       {!!movieRating && (
         <div className="mt-2 flex items-center justify-center">
