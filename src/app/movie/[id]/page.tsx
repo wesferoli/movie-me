@@ -6,12 +6,16 @@ import MoviePoster from "@/components/MovieDetails/MoviePoster";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import ReviewsList from "@/components/MovieDetails/ReviewsList";
+import { ReviewList } from "@/app/api/review/types";
 
 export default async function MovieDetails({ params }: IRouteParams) {
   const session = await getServerSession(authOptions);
 
   const { data: movie } = await api
     .get<{ data: IMovieDetails }>(`/movie/${params.id}`)
+    .then((resp) => resp.data);
+  const { data: movieReviews } = await api
+    .get<{ data: ReviewList }>(`/movie/${params.id}/review`)
     .then((resp) => resp.data);
 
   return (
@@ -41,7 +45,11 @@ export default async function MovieDetails({ params }: IRouteParams) {
         <h2 className="border-b border-yellow-400 pb-2 text-xl font-bold text-yellow-500 drop-shadow-text md:pb-3 lg:text-2xl">
           Reviews
         </h2>
-        <ReviewsList movieId={movie.id} className="mt-2" />
+        <ReviewsList
+          movieId={movie.id}
+          movieReviews={movieReviews}
+          className="mt-2"
+        />
       </section>
     </div>
   );
