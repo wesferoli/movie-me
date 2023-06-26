@@ -1,22 +1,18 @@
-import { api } from "@/lib/api";
 import ReviewCard from "../ReviewCard";
 import { ReviewList } from "@/app/api/review/types";
 import Link from "next/link";
-import { use } from "react";
 
-interface IReviewsListProps {
-  className?: string;
+export interface IReviewsListProps {
   movieId: number;
+  movieReviews: ReviewList;
+  className?: string;
 }
 
-export default async function ReviewsList({
+export default function ReviewsList({
   className,
   movieId,
+  movieReviews,
 }: IReviewsListProps) {
-  const { data: movieReviews } = await api
-    .get<{ data: ReviewList }>(`/movie/${movieId}/review`)
-    .then((resp) => resp.data);
-
   return (
     <div className={className}>
       {movieReviews.length > 0 ? (
@@ -30,6 +26,7 @@ export default async function ReviewsList({
               userName={review.user.name}
               rating={review.rating}
               title={review.title}
+              data-testid="review-card"
             />
           ))}
         </>
