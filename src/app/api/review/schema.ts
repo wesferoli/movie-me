@@ -14,3 +14,11 @@ export const reviewListSchema = z.array(
     }),
   })
 );
+
+export const createReviewData = z.object({
+  title: z.string(),
+  description: z.string(),
+  rating: z.string(),
+  userId: z.string(),
+  movieId: z.string(),
+});
