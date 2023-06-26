@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    serverActions: true,
+  },
   env: {
     MOVIE_DB_TOKEN: process.env.MOVIE_DB_TOKEN,
   },
