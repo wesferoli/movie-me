@@ -9,10 +9,6 @@ export interface IUser {
   image?: string | null;
 }
 
-interface IAppSession extends Session {
-  user?: IUser;
-}
-
 export const authOptions: NextAuthOptions = {
   providers: [
     GitHubProvider({
@@ -43,7 +39,17 @@ export const authOptions: NextAuthOptions = {
     },
 
     async session({ session }) {
-      return session as IAppSession;
+      if (session.user) {
+        const dbUser = await prisma.user.findUnique({
+          where: { email: session.user.email || "" },
+        });
+
+        if (dbUser) {
+          session.user.id = dbUser.id;
+        }
+      }
+
+      return session;
     },
   },
 };
