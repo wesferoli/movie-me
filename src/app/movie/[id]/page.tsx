@@ -7,6 +7,19 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import ReviewsList from "@/components/MovieDetails/ReviewsList";
 import { ReviewList } from "@/app/api/review/types";
+import { MovieList } from "@/app/api/movie/types";
+
+export const revalidate = 259200; // revalidate every 3 days
+
+export async function generateStaticParams() {
+  const { data: movieList } = await api
+    .get<{ data: MovieList }>("/movie")
+    .then((resp) => resp.data);
+
+  return movieList.map((movie) => {
+    return { id: String(movie.id) };
+  });
+}
 
 export default async function MovieDetails({ params }: IRouteParams) {
   const session = await getServerSession(authOptions);
