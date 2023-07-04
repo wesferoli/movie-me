@@ -1,4 +1,4 @@
-import { Container } from "./Container";
+import { Wrapper } from "./Wrapper";
 import { Group } from "./Group";
 import { Input } from "./Input";
 import { Label } from "./Label";
@@ -8,6 +8,6 @@ export const Form = {
   Label: Label,
   Input: Input,
   Group: Group,
-  Container: Container,
+  Wrapper: Wrapper,
   Textarea: Textarea,
 };
