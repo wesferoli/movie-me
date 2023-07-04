@@ -2,7 +2,9 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import { ApiCreateReview } from "@/app/api/review/actions";
 import { CreateReviewData } from "@/app/api/review/types";
 import { IRouteParams } from "@/app/api/types";
+import Button from "@/components/Button";
 import { Form } from "@/components/Form";
+import Rating from "@/components/Rating";
 import { getMovieDetails } from "@/services/api/movie";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
@@ -37,14 +39,18 @@ export default async function CreateReview({ params }: IRouteParams) {
         <h1 className="mt-2 text-center text-2xl font-bold text-yellow-500 drop-shadow-text md:text-left lg:text-3xl xl:text-4xl">
           {movie.title}
         </h1>
-        <div className="mt-2 flex items-center justify-center divide-x divide-yellow-400 text-xs font-semibold drop-shadow-text md:mt-1 md:justify-start md:text-sm">
+        <div className="mt-1 flex items-center justify-center divide-x divide-yellow-400 text-xs font-semibold drop-shadow-text md:mt-1 md:justify-start md:text-sm">
           <span className="pr-2">{movie.releaseYear}</span>
           <span className="pl-2">
             {movie.genres.map((genre) => genre.name).join(", ")}
           </span>
         </div>
       </div>
-      <Form.Container action={createReview} className="mt-2 space-y-2">
+      <Form.Wrapper action={createReview} className="mt-2 space-y-2">
+        <Form.Group>
+          <Form.Label>Rating</Form.Label>
+          <Rating />
+        </Form.Group>
         <Form.Group>
           <Form.Label htmlFor="title-input">Title</Form.Label>
           <Form.Input name="title" type="text" id="title-input" />
@@ -53,7 +59,10 @@ export default async function CreateReview({ params }: IRouteParams) {
           <Form.Label htmlFor="description-input">Description</Form.Label>
           <Form.Textarea name="description" rows={4} id="description-input" />
         </Form.Group>
-      </Form.Container>
+        <div className="flex justify-center pt-2">
+          <Button variant="primary">Create</Button>
+        </div>
+      </Form.Wrapper>
     </div>
   );
 }
