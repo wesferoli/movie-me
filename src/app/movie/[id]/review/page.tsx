@@ -60,7 +60,9 @@ export default async function CreateReview({ params }: IRouteParams) {
           <Form.Textarea name="description" rows={4} id="description-input" />
         </Form.Group>
         <div className="flex justify-center pt-2">
-          <Button variant="primary">Create</Button>
+          <Button className="w-1/3 max-w-[170px]" variant="primary">
+            Create
+          </Button>
         </div>
       </Form.Wrapper>
     </div>
