@@ -8,6 +8,7 @@ import Rating from "@/components/Rating";
 import { getMovieDetails } from "@/services/api/movie";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
 export default async function CreateReview({ params }: IRouteParams) {
   const session = await getServerSession(authOptions);
@@ -24,6 +25,8 @@ export default async function CreateReview({ params }: IRouteParams) {
     const formData = Object.fromEntries(data.entries()) as CreateReviewData;
 
     await ApiCreateReview(formData);
+
+    redirect(`/movie/${movieId}`);
   }
 
   return (
