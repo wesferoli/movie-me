@@ -7,7 +7,7 @@ interface FormLabelProps extends ComponentProps<"label"> {
 export function Label({ children, ...rest }: FormLabelProps) {
   return (
     <label
-      className="text-sm font-bold text-neutral-50 drop-shadow-text"
+      className="text-sm font-bold text-neutral-50 drop-shadow-text md:text-base"
       {...rest}
     >
       {children}

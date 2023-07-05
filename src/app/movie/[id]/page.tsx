@@ -46,7 +46,7 @@ export default async function MovieDetails({ params }: IRouteParams) {
         <ReviewsList
           movieId={movie.id}
           movieReviews={movieReviews}
-          className="mt-2"
+          className="mt-2 flex flex-col gap-2"
         />
       </section>
     </div>
