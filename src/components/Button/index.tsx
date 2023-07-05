@@ -1,30 +1,28 @@
-interface IButtonProps {
-  onClick: () => void;
+import { ComponentProps } from "react";
+import { twMerge } from "tailwind-merge";
+
+interface IButtonProps extends ComponentProps<"button"> {
   children: string;
   icon?: JSX.Element;
-  className?: string;
   variant?: "primary";
 }
 
 export const variants = {
   primary:
-    "rounded-full border border-black bg-yellow-600 p-1.5 text-sm font-medium text-black lg:text-base",
+    "rounded-full border border-black bg-yellow-600 text-sm font-medium text-black lg:text-base",
 };
-const baseStyle = "flex items-center justify-center text-center";
+const baseStyle = "flex items-center py-1.5 px-3 justify-center text-center";
 
 export default function Button({
-  onClick,
-  className,
   children,
   icon,
   variant = "primary",
+  ...rest
 }: IButtonProps) {
   return (
     <button
-      onClick={onClick}
-      className={[baseStyle, variants[variant], className]
-        .map((style) => style)
-        .join(" ")}
+      {...rest}
+      className={twMerge([baseStyle, variants[variant], rest.className])}
     >
       {icon}
       {children}
