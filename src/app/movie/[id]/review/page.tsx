@@ -7,6 +7,7 @@ import { Form } from "@/components/Form";
 import Rating from "@/components/Rating";
 import { getMovieDetails } from "@/services/api/movie";
 import { getServerSession } from "next-auth";
+import { revalidatePath } from "next/cache";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 
@@ -26,7 +27,9 @@ export default async function CreateReview({ params }: IRouteParams) {
 
     await ApiCreateReview(formData);
 
-    redirect(`/movie/${movieId}`);
+    const redirectPath = `/movie/${movieId}`;
+    revalidatePath(redirectPath);
+    redirect(redirectPath);
   }
 
   return (
