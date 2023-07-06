@@ -1,6 +1,6 @@
 "use client";
 
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -27,7 +27,7 @@ export default function Profile({ avatarUrl }: IProfileProps) {
         <div className="absolute right-0 top-[110%] my-0 min-w-max rounded-md bg-neutral-50 p-2 text-sm text-neutral-900 sm:left-1/2 sm:right-1/2 sm:-translate-x-1/2 md:top-[120%] md:p-2.5 md:text-base">
           <ul className="flex-col space-y-1 sm:space-y-2">
             <li>
-              <a href="/my-reviews">My reviews</a>
+              <a href="/user/reviews">My reviews</a>
             </li>
             <li className="font-semibold text-red-500">
               <button className="text-left" onClick={() => signOut()}>
