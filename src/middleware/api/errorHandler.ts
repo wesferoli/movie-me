@@ -30,7 +30,10 @@ export function errorHandler(err: any) {
 
   // Generic error cases
   console.error(err);
-  return NextResponse.json(err, {
-    status: err?.response?.status || statusCode,
-  });
+  return NextResponse.json(
+    { error: err.message },
+    {
+      status: err?.response?.status || statusCode,
+    }
+  );
 }
