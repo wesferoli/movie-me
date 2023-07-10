@@ -37,7 +37,7 @@ export async function GET(request: Request, { params }: IRouteParams) {
     });
 
     const filteredReview = reviewSchema.parse(review);
-    console.log(filteredReview);
+
     return NextResponse.json({ data: filteredReview });
   } catch (error) {
     return errorHandler(error);

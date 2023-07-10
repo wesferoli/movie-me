@@ -10,7 +10,7 @@ interface MyReviewListProps {
 export default function MyReviewList({ review }: MyReviewListProps) {
   return (
     <Link
-      href={`/review/${review.id}`}
+      href={`/movie/${review.movieId}/review/${review.id}`}
       className="flex items-center justify-between gap-2 py-2"
       key={review.id}
     >
