@@ -11,7 +11,7 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
 
 interface IMoviePosterProps {
   posterUrl: string;
-  movieRating: number | null;
+  movieRating?: number | null;
   movieId: number;
   session: Session | null;
 }
@@ -38,7 +38,7 @@ export default function MoviePoster({
   return (
     <div className="flex flex-col items-center justify-center md:justify-start">
       <Image
-        className="max-w-[160px] md:w-full md:max-w-[200px] xl:max-w-[225px] 2xl:max-w-[250px]"
+        className="max-w-[160px] shadow-poster md:w-full md:max-w-[200px] xl:max-w-[225px] 2xl:max-w-[250px]"
         alt="Movie image"
         src={posterUrl}
         width={225}
