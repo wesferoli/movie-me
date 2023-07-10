@@ -15,20 +15,13 @@ type ReviewDetailParams = {
 } & IRouteParams;
 
 async function staticParams() {
-  const { data: movieList } = await api
-    .get<{ data: MovieList }>("/movie")
-    .then((resp) => resp.data);
   const { data: reviewList } = await api
     .get<{ data: ReviewList }>("/review")
     .then((resp) => resp.data);
 
-  const paramsList = movieList.map((movie) => {
-    return reviewList.map((review) => {
-      return { id: String(movie.id), reviewId: review.id };
-    });
+  return reviewList.map((review) => {
+    return { id: String(review.movieId), reviewId: review.id };
   });
-
-  return paramsList;
 }
 
 export const generateStaticParams =
