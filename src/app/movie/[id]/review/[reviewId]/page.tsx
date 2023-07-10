@@ -1,5 +1,7 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
+import { MovieList } from "@/app/api/movie/types";
 import { Review } from "@/app/api/review/[id]/types";
+import { ReviewList } from "@/app/api/review/types";
 import { IRouteParams } from "@/app/api/types";
 import MoviePoster from "@/components/MovieDetails/MoviePoster";
 import { api } from "@/lib/api";
@@ -12,11 +14,31 @@ type ReviewDetailParams = {
   params: { reviewId: string };
 } & IRouteParams;
 
+async function staticParams() {
+  const { data: movieList } = await api
+    .get<{ data: MovieList }>("/movie")
+    .then((resp) => resp.data);
+  const { data: reviewList } = await api
+    .get<{ data: ReviewList }>("/review")
+    .then((resp) => resp.data);
+
+  const paramsList = movieList.map((movie) => {
+    return reviewList.map((review) => {
+      return { id: String(movie.id), reviewId: review.id };
+    });
+  });
+
+  return paramsList;
+}
+
+export const generateStaticParams =
+  process.env.NEXT_PUBLIC_NODE_ENV === "production" ? staticParams : undefined;
+
 export default async function ReviewDetail({ params }: ReviewDetailParams) {
   const session = await getServerSession(authOptions);
   const { data: review } = await api
     .get<{ data: Review }>(`/review/${params.reviewId}`)
-    .then((review) => review.data);
+    .then((resp) => resp.data);
 
   return (
     <div className="mx-4 my-8 max-w-[1136px] flex-grow rounded-lg border border-yellow-500 bg-neutral-700 p-2 sm:mx-10 sm:p-4 md:mx-10 md:p-10 lg:mx-24 lg:my-10 lg:p-10 xl:p-16">
