@@ -15,7 +15,7 @@ export const movieDBListSchema = z.array(
       return {
         ...rest,
         releaseYear: getYear(release_date),
-        poster: poster_path,
+        poster: { src: poster_path, base64: "" },
       };
     })
 );
