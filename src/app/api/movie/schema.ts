@@ -7,7 +7,7 @@ export const movieDBListSchema = z.array(
       id: z.number(),
       title: z.string(),
       release_date: z.string(),
-      poster_path: z.string(),
+      poster_path: z.string().nullable(),
     })
     .transform((movie) => {
       const { poster_path, release_date, ...rest } = movie;
