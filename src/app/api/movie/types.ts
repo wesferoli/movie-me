@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { movieDBListSchema } from "./schema";
 
-interface IPopularMDBMovie {
+interface IMDBMovie {
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];
@@ -18,9 +18,9 @@ interface IPopularMDBMovie {
   vote_count: number;
 }
 
-export interface IPopularMDB {
+export interface IMDBMovieList {
   page: number;
-  results: IPopularMDBMovie[];
+  results: IMDBMovie[];
   total_pages: number;
   total_results: number;
 }

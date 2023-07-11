@@ -6,7 +6,7 @@ import {
 
 interface IMovieInfoProps {
   title: string;
-  releaseYear: string;
+  releaseYear: string | null;
   genres: IMovieDetailsGenres;
   overview: string;
   cast: IMovieDetailsCast;
