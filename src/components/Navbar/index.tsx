@@ -13,12 +13,12 @@ export default async function Navbar({ session }: INavbarProps) {
     <nav className="relative grid h-10 grid-cols-8 items-center bg-yellow-500 px-4 sm:px-10 md:h-14 lg:px-24">
       <Link
         href="/"
-        className="col-start-1 col-end-3 hidden text-xl font-bold text-black sm:inline md:text-2xl lg:text-3xl"
+        className="order-2 col-start-3 col-end-7 justify-self-center text-xl font-bold text-black sm:order-1 sm:col-start-1 sm:col-end-3 sm:inline sm:justify-self-start md:text-2xl lg:text-3xl"
       >
         MovieMe
       </Link>
       <SearchBar />
-      <div className="col-start-7 col-end-9 flex justify-end">
+      <div className="order-3 col-start-8 col-end-8 flex justify-end">
         {session?.user ? (
           <Profile avatarUrl={session?.user?.image || ""} />
         ) : (
