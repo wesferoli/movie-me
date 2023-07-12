@@ -4,8 +4,8 @@ import { movieDetailsSchema } from "./schema";
 import prisma from "@/lib/prisma";
 import { MDBMovieDetails, IMovieDetails } from "./types";
 import { errorHandler } from "@/middleware/api/errorHandler";
-import { posterURL } from "@/utils/constant";
 import { IRouteParams } from "../../types";
+import { getPlaceholderImage } from "@/utils/transformImage";
 
 export async function GET(request: Request, { params }: IRouteParams) {
   try {
@@ -17,6 +17,7 @@ export async function GET(request: Request, { params }: IRouteParams) {
       .then((resp) => resp.data);
 
     const filteredMovieDetails = movieDetailsSchema.parse(movie);
+    const poster = await getPlaceholderImage(filteredMovieDetails.poster);
 
     const { _avg: averageRating } = await prisma.review.aggregate({
       _avg: {
@@ -30,7 +31,7 @@ export async function GET(request: Request, { params }: IRouteParams) {
     const movieDetails: IMovieDetails = {
       ...filteredMovieDetails,
       rating: averageRating.rating,
-      poster: `${posterURL}${filteredMovieDetails.poster}`,
+      poster,
     };
 
     return NextResponse.json({ data: movieDetails });

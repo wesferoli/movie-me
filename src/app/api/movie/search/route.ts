@@ -3,7 +3,7 @@ import { errorHandler } from "@/middleware/api/errorHandler";
 import { NextResponse } from "next/server";
 import { IMDBMovieList, MovieList } from "../types";
 import { movieDBListSchema } from "../schema";
-import { posterURL } from "@/utils/constant";
+import { getPlaceholderImage } from "@/utils/transformImage";
 
 export async function GET(request: Request) {
   try {
@@ -21,15 +21,15 @@ export async function GET(request: Request) {
 
     const filterMovies: MovieList = movieDBListSchema.parse(movieList.results);
 
-    filterMovies.map((movie) => {
-      if (movie.poster) {
-        Object.assign(movie, {
-          poster: `${posterURL}${movie.poster}`,
-        });
-      }
+    await Promise.all(
+      filterMovies.map(async (movie) => {
+        const poster = await getPlaceholderImage(movie.poster);
 
-      return movie;
-    });
+        Object.assign(movie, {
+          poster,
+        });
+      })
+    ).then((value) => value);
 
     return NextResponse.json({ data: filterMovies });
   } catch (err) {

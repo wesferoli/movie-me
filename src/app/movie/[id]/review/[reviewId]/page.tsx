@@ -39,7 +39,7 @@ export default async function ReviewDetail({ params }: ReviewDetailParams) {
         <section className="md:w-1/4">
           <MoviePoster
             movieId={Number(params.id)}
-            posterUrl={review.movie.poster}
+            poster={review.movie.poster}
             session={session}
           />
         </section>

@@ -1,11 +1,9 @@
 import { movieDBApi } from "@/lib/api";
-import { posterURL } from "@/utils/constant";
 import { NextResponse } from "next/server";
 import { IMDBMovieList, MovieList } from "./types";
 import { movieDBListSchema } from "./schema";
 import { errorHandler } from "@/middleware/api/errorHandler";
-import { getPlaiceholder } from "plaiceholder";
-import axios from "axios";
+import { getPlaceholderImage } from "@/utils/transformImage";
 
 export async function GET() {
   try {
@@ -21,23 +19,11 @@ export async function GET() {
     // Add valid poster url and blur data
     await Promise.all(
       filterMovies.map(async (movie) => {
-        if (movie.poster.src) {
-          const response = await axios.get(`${posterURL}${movie.poster.src}`, {
-            responseType: "arraybuffer",
-          });
+        const poster = await getPlaceholderImage(movie.poster);
 
-          const buffer = Buffer.from(response.data, "utf-8");
-          const { base64 } = await getPlaiceholder(buffer);
-
-          Object.assign(movie, {
-            poster: {
-              src: `${posterURL}${movie.poster.src}`,
-              base64: base64,
-            },
-          });
-
-          return movie;
-        }
+        Object.assign(movie, {
+          poster,
+        });
       })
     ).then((value) => value);
 

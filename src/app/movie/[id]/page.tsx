@@ -22,7 +22,7 @@ export default async function MovieDetails({ params }: IRouteParams) {
       <section className="border-b-2 border-yellow-500 pb-3 md:col-span-3 md:border-none md:pb-4">
         <MoviePoster
           movieId={movie.id}
-          posterUrl={movie.poster}
+          poster={movie.poster}
           movieRating={movie.rating}
           session={session}
         />

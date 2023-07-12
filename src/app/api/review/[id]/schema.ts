@@ -12,7 +12,10 @@ export const reviewSchema = z
       avatarUrl: z.string(),
     }),
     movie: z.object({
-      poster: z.string(),
+      poster: z.object({
+        src: z.string().nullable(),
+        base64: z.string(),
+      }),
       title: z.string(),
       releaseDate: z.string(),
       genres: z.array(
