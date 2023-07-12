@@ -96,7 +96,7 @@ export default function SearchBar() {
         <MovieSearchList
           movieList={movieSearch.movieList}
           onClick={() => closeMovieSearch()}
-          className="absolute top-20 z-10 max-h-[40vh] w-full justify-self-center sm:top-10 sm:w-[50%]  md:top-14 lg:w-[40%]"
+          className="absolute top-20 z-10 max-h-[40vh] w-full justify-self-center sm:top-10 sm:w-[50%] md:top-14 lg:w-[40%]"
         />
       ) : null}
     </>

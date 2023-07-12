@@ -17,7 +17,7 @@ export default function MovieSearchList({
     <div
       {...rest}
       className={twMerge([
-        "divide-y overflow-y-scroll rounded-b-md border border-t-0 border-zinc-400 bg-neutral-700 px-4 sm:rounded-lg sm:border-t",
+        "divide-y overflow-y-scroll rounded-b-md border border-t-0 border-zinc-400 bg-neutral-700 sm:rounded-lg sm:border-t",
         rest.className,
       ])}
     >
@@ -25,7 +25,7 @@ export default function MovieSearchList({
         return (
           <Link
             href={`/movie/${movie.id}`}
-            className="m-2 flex items-center border-yellow-400 pt-2 drop-shadow-text"
+            className="flex items-center border-yellow-400 p-4 drop-shadow-text hover:bg-neutral-600"
             key={movie.id}
           >
             <Image
