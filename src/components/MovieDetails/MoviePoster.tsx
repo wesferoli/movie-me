@@ -10,8 +10,8 @@ import Button from "../Button";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
 
 interface IMoviePosterProps {
-  posterUrl: {
-    src: string;
+  poster: {
+    src: string | null;
     base64: string;
   };
   movieRating?: number | null;
@@ -31,7 +31,7 @@ function handleNavigation(
 }
 
 export default function MoviePoster({
-  posterUrl,
+  poster,
   movieRating,
   movieId,
   session,
@@ -43,9 +43,9 @@ export default function MoviePoster({
       <Image
         className="max-w-[160px] shadow-poster md:w-full md:max-w-[200px] xl:max-w-[225px] 2xl:max-w-[250px]"
         alt="Movie image"
-        src={posterUrl.src || "/default-image.png"}
+        src={poster?.src || "/default-image.png"}
         placeholder="blur"
-        blurDataURL={posterUrl.base64}
+        blurDataURL={poster.base64}
         width={225}
         height={340}
       />

@@ -1,12 +1,11 @@
 import { errorHandler } from "@/middleware/api/errorHandler";
 import { IRouteParams } from "../../types";
 import prisma from "@/lib/prisma";
-import { getMovieDetails } from "@/services/api/movie";
 import { reviewSchema } from "./schema";
 import { NextResponse } from "next/server";
 import { movieDBApi } from "@/lib/api";
 import { MDBMovieDetails } from "../../movie/[id]/types";
-import { posterURL } from "@/utils/constant";
+import { getPlaceholderImage } from "@/utils/transformImage";
 
 export async function GET(request: Request, { params }: IRouteParams) {
   try {
@@ -27,9 +26,13 @@ export async function GET(request: Request, { params }: IRouteParams) {
       throw new Error("Movie not found");
     }
 
+    const poster = await getPlaceholderImage({
+      src: movie.poster_path,
+      base64: "",
+    });
     Object.assign(review, {
       movie: {
-        poster: `${posterURL}${movie.poster_path}`,
+        poster: poster,
         title: movie.title,
         releaseDate: movie.release_date,
         genres: movie.genres,
