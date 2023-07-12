@@ -36,10 +36,12 @@ export default async function CreateReview({ params }: IRouteParams) {
     <div className="mx-4 my-8 max-w-[1136px] flex-grow rounded-lg border border-yellow-500 bg-neutral-700 p-2 sm:mx-10 sm:p-4 md:mx-10 md:p-10 lg:mx-24 lg:my-10 lg:p-10 xl:p-16">
       <div className="flex flex-col items-center justify-center border-b-2 border-yellow-500 pb-2 sm:flex-row sm:items-start sm:justify-start md:pb-4">
         <Image
-          src={movie.poster}
+          src={movie.poster.src || "/default-image.png"}
           alt="Movie poster"
           width={225}
           height={340}
+          placeholder="blur"
+          blurDataURL={movie.poster.base64}
           className="max-w-[160px] shadow-poster md:w-full md:max-w-[200px] xl:max-w-[225px] 2xl:max-w-[250px]"
         />
         <div className="sm:ml-4">
