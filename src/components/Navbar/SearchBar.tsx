@@ -59,7 +59,7 @@ export default function SearchBar() {
           <input
             name="search"
             type="text"
-            placeholder="Find by title or category"
+            placeholder="Search a title"
             className="h-8 w-full justify-self-center rounded-full px-3 text-black placeholder:text-gray-200"
             onChange={(e) =>
               setMovieSearch((state) => ({
@@ -78,7 +78,7 @@ export default function SearchBar() {
         <input
           name="search"
           type="text"
-          placeholder="Find by title or category"
+          placeholder="Search a title"
           className="hidden h-8 w-[80%] justify-self-center rounded-full px-4 text-sm text-black placeholder:text-gray-200 sm:inline md:h-10 md:text-base xl:w-2/3"
           onChange={(e) =>
             setMovieSearch((state) => ({
