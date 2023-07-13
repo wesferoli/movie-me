@@ -16,9 +16,27 @@ export const reviewListSchema = z.array(
 );
 
 export const createReviewData = z.object({
-  title: z.string(),
-  description: z.string(),
-  rating: z.string(),
-  userId: z.string(),
-  movieId: z.string(),
+  title: z
+    .string({
+      errorMap: () => ({ message: "Field required" }),
+    })
+    .min(1, "Field required"),
+  description: z
+    .string({
+      errorMap: () => ({ message: "Field required" }),
+    })
+    .min(1, "Field required"),
+  rating: z
+    .string({ errorMap: () => ({ message: "Field required" }) })
+    .min(1, "Field required"),
+  userId: z
+    .string({
+      errorMap: () => ({ message: "Field required" }),
+    })
+    .min(1, "Field required"),
+  movieId: z
+    .number({
+      errorMap: () => ({ message: "Field required" }),
+    })
+    .min(1, "Field required"),
 });
