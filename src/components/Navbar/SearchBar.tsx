@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
 import { Search } from "lucide-react";
 import { api } from "@/lib/api";
 import { MovieList } from "@/app/api/movie/types";
@@ -13,37 +13,45 @@ export default function SearchBar() {
     movieList: MovieList;
   }>({ search: "", movieList: [] });
 
-  const handleSearch = useCallback(
-    async (query: string) => {
-      if (movieSearch.search) {
-        const { data: movieList } = await api
-          .get<{ data: MovieList }>("/movie/search", { params: { query } })
-          .then((resp) => resp.data);
+  const handleSearch = useCallback(async (query: string) => {
+    if (query) {
+      const { data: movieList } = await api
+        .get<{ data: MovieList }>("/movie/search", { params: { query } })
+        .then((resp) => resp.data);
 
-        setMovieSearch((state) => ({ search: state.search, movieList }));
-      } else {
-        closeMovieSearch({ search: "", movieList: [] });
-      }
-    },
-    [movieSearch.search]
-  );
+      setMovieSearch((state) => ({ search: state.search, movieList }));
+    } else {
+      closeMovieSearch({ search: "", movieList: [] });
+    }
+  }, []);
 
   function closeMovieSearch(newState?: {
     search: string;
     movieList: MovieList;
   }) {
-    setMovieSearch(
-      (state) => newState || { search: state.search, movieList: [] }
-    );
+    const closeMovieDelayFn = setTimeout(() => {
+      setMovieSearch(
+        (state) => newState || { search: state.search, movieList: [] }
+      );
+    }, 200);
+
+    return () => clearTimeout(closeMovieDelayFn);
+  }
+
+  function onChange(event: ChangeEvent<HTMLInputElement>) {
+    setMovieSearch((state) => ({
+      search: event.target.value,
+      movieList: state.movieList,
+    }));
   }
 
   useEffect(() => {
-    handleSearch(movieSearch.search);
-  }, [movieSearch.search, handleSearch]);
+    const searchDelayFn = setTimeout(() => {
+      handleSearch(movieSearch.search);
+    }, 500);
 
-  useEffect(() => {
-    closeMovieSearch({ search: "", movieList: [] });
-  }, [showInput]);
+    return () => clearTimeout(searchDelayFn);
+  }, [movieSearch.search, handleSearch]);
 
   return (
     <>
@@ -61,14 +69,9 @@ export default function SearchBar() {
             type="text"
             placeholder="Search a title"
             className="h-8 w-full justify-self-center rounded-full px-3 text-black placeholder:text-gray-200"
-            onChange={(e) =>
-              setMovieSearch((state) => ({
-                search: e.target.value,
-                movieList: state.movieList,
-              }))
-            }
+            onChange={onChange}
+            onBlur={() => closeMovieSearch()}
             value={movieSearch.search}
-            onFocus={() => handleSearch(movieSearch.search)}
           />
         </div>
       )}
@@ -80,14 +83,9 @@ export default function SearchBar() {
           type="text"
           placeholder="Search a title"
           className="hidden h-8 w-[80%] justify-self-center rounded-full px-4 text-sm text-black placeholder:text-gray-200 sm:inline md:h-10 md:text-base xl:w-2/3"
-          onChange={(e) =>
-            setMovieSearch((state) => ({
-              search: e.target.value,
-              movieList: state.movieList,
-            }))
-          }
+          onChange={onChange}
+          onBlur={() => closeMovieSearch()}
           value={movieSearch.search}
-          onFocus={() => handleSearch(movieSearch.search)}
           disabled={showInput}
         />
       </div>
@@ -95,7 +93,6 @@ export default function SearchBar() {
       {movieSearch.movieList.length ? (
         <MovieSearchList
           movieList={movieSearch.movieList}
-          onClick={() => closeMovieSearch()}
           className="absolute top-20 z-10 max-h-[40vh] w-full justify-self-center sm:top-10 sm:w-[50%] md:top-14 lg:w-[40%]"
         />
       ) : null}

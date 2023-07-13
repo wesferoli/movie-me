@@ -1,7 +1,6 @@
 import { MovieList } from "@/app/api/movie/types";
 import Image from "next/image";
 import Link from "next/link";
-import DefaultImage from "public/default-image.png";
 import { ComponentProps } from "react";
 import { twMerge } from "tailwind-merge";
 
