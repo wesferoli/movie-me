@@ -15,34 +15,28 @@ export const reviewListSchema = z.array(
   })
 );
 
-export const createReviewData = z
-  .object({
-    title: z
-      .string({
-        errorMap: () => ({ message: "Field required" }),
-      })
-      .min(1, "Field required"),
-    description: z
-      .string({
-        errorMap: () => ({ message: "Field required" }),
-      })
-      .min(1, "Field required"),
-    rating: z.string().min(1, "Field required"),
-    userId: z
-      .string({
-        errorMap: () => ({ message: "Field required" }),
-      })
-      .min(1, "Field required"),
-    movieId: z
-      .number({
-        errorMap: () => ({ message: "Field required" }),
-      })
-      .min(1, "Field required"),
-  })
-  .transform((review) => {
-    return {
-      ...review,
-      rating: Number(review.rating),
-      movieId: Number(review.movieId),
-    };
-  });
+export const createReviewData = z.object({
+  title: z
+    .string({
+      errorMap: () => ({ message: "Field required" }),
+    })
+    .min(1, "Field required"),
+  description: z
+    .string({
+      errorMap: () => ({ message: "Field required" }),
+    })
+    .min(1, "Field required"),
+  rating: z
+    .string({ errorMap: () => ({ message: "Field required" }) })
+    .min(1, "Field required"),
+  userId: z
+    .string({
+      errorMap: () => ({ message: "Field required" }),
+    })
+    .min(1, "Field required"),
+  movieId: z
+    .number({
+      errorMap: () => ({ message: "Field required" }),
+    })
+    .min(1, "Field required"),
+});

@@ -15,6 +15,8 @@ export async function ApiCreateReview(data: CreateReviewData) {
     const newReview = await prisma.review.create({
       data: {
         ...validatedData,
+        movieId: Number(validatedData.movieId),
+        rating: Number(validatedData.rating),
       },
     });
 
@@ -27,19 +29,14 @@ export async function ApiCreateReview(data: CreateReviewData) {
   }
 }
 
-export async function createReview(
-  data: CreateReviewData,
-  userId: string,
-  movieId: string
-) {
-  Object.assign(data, {
-    userId,
-    movieId,
-  });
+export async function createReview(data: CreateReviewData) {
+  try {
+    await ApiCreateReview(data);
 
-  await ApiCreateReview(data);
-
-  const redirectPath = `/movie/${movieId}`;
-  revalidatePath(redirectPath);
-  redirect(redirectPath);
+    const redirectPath = `/movie/${data.movieId}`;
+    revalidatePath(redirectPath);
+    redirect(redirectPath);
+  } catch (err) {
+    console.error(err);
+  }
 }

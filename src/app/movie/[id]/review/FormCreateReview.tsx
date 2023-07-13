@@ -33,8 +33,8 @@ export default function FormCreateReview({
   });
 
   function onSubmit(data: CreateReviewData) {
-    startTransition(() => {
-      createReview(data, userId, movieId);
+    startTransition(async () => {
+      await createReview(data);
     });
   }
 
