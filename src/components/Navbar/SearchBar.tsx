@@ -33,7 +33,7 @@ export default function SearchBar() {
       setMovieSearch(
         (state) => newState || { search: state.search, movieList: [] }
       );
-    }, 200);
+    }, 500);
 
     return () => clearTimeout(closeMovieDelayFn);
   }
