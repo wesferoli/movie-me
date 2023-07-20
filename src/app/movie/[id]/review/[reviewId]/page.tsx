@@ -75,7 +75,9 @@ export default async function ReviewDetail({ params }: ReviewDetailParams) {
             </div>
           </div>
           <div className="pt-2">
-            <span>{review.description}</span>
+            <span
+              dangerouslySetInnerHTML={{ __html: review.description }}
+            ></span>
           </div>
         </section>
       </div>
