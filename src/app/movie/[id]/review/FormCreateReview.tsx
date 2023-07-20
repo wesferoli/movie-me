@@ -4,7 +4,7 @@ import { createReview } from "@/app/api/review/actions";
 import Button from "@/components/Button";
 import { Form } from "@/components/Form";
 import { Rating } from "@/components/Rating";
-import { useEffect, useTransition } from "react";
+import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createReviewData } from "@/app/api/review/schema";
@@ -22,6 +22,7 @@ export default function FormCreateReview({
   const [isPending, startTransition] = useTransition();
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<CreateReviewData>({
@@ -63,9 +64,9 @@ export default function FormCreateReview({
       </Form.Group>
       <Form.Group>
         <Form.Label htmlFor="description-input">Description</Form.Label>
-        <Form.Textarea
-          {...register("description", { required: true })}
-          rows={4}
+        <Form.Editor
+          name="description"
+          control={control}
           id="description-input"
         />
         <span className="text-sm text-red-500">
