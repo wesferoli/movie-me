@@ -1,20 +1,18 @@
 import { IRouteParams } from "@/app/api/types";
-import { api } from "@/lib/api";
 import MovieInfo from "@/components/MovieDetails/MovieInfo";
 import MoviePoster from "@/components/MovieDetails/MoviePoster";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import ReviewsList from "@/components/MovieDetails/ReviewsList";
-import { ReviewList } from "@/app/api/review/types";
-import { getMovieDetails } from "@/services/api/movie";
+import { MovieController } from "@/services/controllers/movie";
 
 export default async function MovieDetails({ params }: IRouteParams) {
   const session = await getServerSession(authOptions);
 
-  const { data: movie } = await getMovieDetails(params.id);
-  const { data: movieReviews } = await api
-    .get<{ data: ReviewList }>(`/movie/${params.id}/review`)
-    .then((resp) => resp.data);
+  const movie = await MovieController.find(params.id).then((resp) => resp.data);
+  const movieReviews = await MovieController.listReviews(params.id).then(
+    (resp) => resp.data
+  );
 
   return (
     <div className="mx-4 my-8 max-w-[1136px] rounded-lg border border-yellow-500 bg-neutral-700 p-2 md:mx-10 md:grid md:grid-cols-12 md:gap-x-4 md:p-4 lg:mx-24 lg:my-10 lg:p-10 xl:gap-x-8 xl:p-16">
