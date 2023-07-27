@@ -1,16 +1,17 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
-import { UserReviewList } from "@/app/api/user/[id]/reviews/types";
+import { UserReviewList } from "@/services/controllers/user/types";
 import MyReviewList from "@/components/MyReviewList";
 import { api } from "@/lib/api";
+import { UserController } from "@/services/controllers/user";
 import { getServerSession } from "next-auth";
 
 export default async function MyReviews() {
   const session = await getServerSession(authOptions);
   const userId = session?.user?.id as string;
 
-  const { data: reviewsList } = await api
-    .get<{ data: UserReviewList }>(`/user/${userId}/reviews`)
-    .then((resp) => resp.data);
+  const reviewsList = await UserController.listReviews(userId).then(
+    (resp) => resp.data
+  );
 
   return (
     <div className="w-full max-w-[1136px] rounded-lg border border-yellow-500 bg-neutral-700 font-semibold">

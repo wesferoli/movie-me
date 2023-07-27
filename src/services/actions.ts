@@ -1,12 +1,12 @@
 "use server";
 
 import { errorHandler } from "@/middleware/api/errorHandler";
-import { CreateReviewData } from "./types";
-import { createReviewData } from "./schema";
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { createReviewData } from "@/services/controllers/review/schema";
+import { CreateReviewData } from "@/services/controllers/review/types";
 
 export async function ApiCreateReview(data: CreateReviewData) {
   try {

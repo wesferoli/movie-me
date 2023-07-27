@@ -4,13 +4,12 @@ import {
   MDBMovieDetails,
   MovieList,
 } from "@/services/controllers/movie/types";
-import { reviewListSchema } from "@/app/api/review/schema";
-import { ReviewList } from "@/app/api/review/types";
 import { movieDBApi } from "@/lib/api";
 import prisma from "@/lib/prisma";
 import { errorHandler } from "@/middleware/api/errorHandler";
 import { getPlaceholderImage } from "@/utils/transformImage";
 import { movieDetailsSchema, movieListSchema } from "./schema";
+import { reviewListSchema } from "../review/schema";
 
 export const MovieController = {
   listPopular: async (config?: RequestInit) => {
@@ -86,10 +85,35 @@ export const MovieController = {
         include: { user: true },
       });
 
-      const filteredMovieReviews: ReviewList =
-        reviewListSchema.parse(movieReview);
+      const filteredMovieReviews = reviewListSchema.parse(movieReview);
 
       const response = { data: filteredMovieReviews };
+
+      return response;
+    } catch (err) {
+      throw errorHandler(err);
+    }
+  },
+
+  search: async (query: string) => {
+    try {
+      const movieList: IMDBMovieList = await movieDBApi.get(
+        `/search/movie?query=${query}`
+      );
+
+      const filterMovies: MovieList = movieListSchema.parse(movieList.results);
+
+      await Promise.all(
+        filterMovies.map(async (movie) => {
+          const poster = await getPlaceholderImage(movie.poster);
+
+          Object.assign(movie, {
+            poster,
+          });
+        })
+      ).then((value) => value);
+
+      const response = { data: filterMovies };
 
       return response;
     } catch (err) {

@@ -1,9 +1,13 @@
 import { movieDBApi } from "@/lib/api";
 import { errorHandler } from "@/middleware/api/errorHandler";
 import { NextResponse } from "next/server";
-import { IMDBMovieList, MovieList } from "../types";
-import { movieDBListSchema } from "../schema";
+import {
+  IMDBMovieList,
+  MovieList,
+} from "../../../../services/controllers/movie/types";
 import { getPlaceholderImage } from "@/utils/transformImage";
+import { movieListSchema } from "@/services/controllers/movie/schema";
+import { MovieController } from "@/services/controllers/movie";
 
 export async function GET(request: Request) {
   try {
@@ -13,25 +17,10 @@ export async function GET(request: Request) {
     if (!query) {
       throw new Error("Search not provided.");
     }
-    const movieList = await movieDBApi
-      .get<IMDBMovieList>("/search/movie", {
-        params: { query },
-      })
-      .then((resp) => resp.data);
 
-    const filterMovies: MovieList = movieDBListSchema.parse(movieList.results);
+    const searchedMovies = await MovieController.search(query);
 
-    await Promise.all(
-      filterMovies.map(async (movie) => {
-        const poster = await getPlaceholderImage(movie.poster);
-
-        Object.assign(movie, {
-          poster,
-        });
-      })
-    ).then((value) => value);
-
-    return NextResponse.json({ data: filterMovies });
+    return NextResponse.json(searchedMovies);
   } catch (err) {
     return errorHandler(err);
   }

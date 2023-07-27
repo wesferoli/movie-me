@@ -1,11 +1,11 @@
-import { MovieList } from "@/app/api/movie/types";
+import { MovieList } from "@/services/controllers/movie/types";
 import { api } from "@/lib/api";
 
 export const revalidate = 259200; // revalidate every 3 days
 
 async function staticParams() {
-  const { data: movieList } = await api
-    .get<{ data: MovieList }>("/movie")
+  const movieList: MovieList = await api
+    .get("/movie")
     .then((resp) => resp.data);
 
   return movieList.map((movie) => {

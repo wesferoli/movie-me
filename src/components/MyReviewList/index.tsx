@@ -1,4 +1,4 @@
-import { UserReviewList } from "@/app/api/user/[id]/reviews/types";
+import { UserReviewList } from "@/services/controllers/user/types";
 import generateRatingStars from "@/utils/rating";
 import { Star } from "lucide-react";
 import Link from "next/link";

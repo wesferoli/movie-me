@@ -1,14 +1,14 @@
 "use client";
 
-import { createReview } from "@/app/api/review/actions";
+import { createReview } from "@/services/actions";
 import Button from "@/components/Button";
 import { Form } from "@/components/Form";
 import { Rating } from "@/components/Rating";
 import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createReviewData } from "@/app/api/review/schema";
-import { CreateReviewData } from "@/app/api/review/types";
+import { CreateReviewData } from "@/services/controllers/review/types";
+import { createReviewData } from "@/services/controllers/review/schema";
 
 interface FormCreateReviewProps {
   userId: string;

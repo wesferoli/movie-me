@@ -1,4 +1,4 @@
-import { MovieList } from "@/app/api/movie/types";
+import { MovieList } from "@/services/controllers/movie/types";
 import Image from "next/image";
 import Link from "next/link";
 import { ComponentProps } from "react";
