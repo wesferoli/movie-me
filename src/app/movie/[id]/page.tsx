@@ -6,6 +6,8 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import ReviewsList from "@/components/MovieDetails/ReviewsList";
 import { MovieController } from "@/services/controllers/movie";
 
+export const revalidate = 60; // revalidate after one minute
+
 export default async function MovieDetails({ params }: IRouteParams) {
   const session = await getServerSession(authOptions);
 

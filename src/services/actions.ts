@@ -2,13 +2,14 @@
 
 import { errorHandler } from "@/middleware/api/errorHandler";
 import prisma from "@/lib/prisma";
-import { NextResponse } from "next/server";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+
 import { createReviewData } from "@/services/controllers/review/schema";
 import { CreateReviewData } from "@/services/controllers/review/types";
+import { revalidatePath } from "next/cache";
 
-export async function ApiCreateReview(data: CreateReviewData) {
+import "server-only";
+
+async function ApiCreateReview(data: CreateReviewData) {
   try {
     const validatedData = createReviewData.parse(data);
 
@@ -20,22 +21,29 @@ export async function ApiCreateReview(data: CreateReviewData) {
       },
     });
 
-    return NextResponse.json({
+    return {
       data: newReview,
       message: "New review created!",
-    });
+      success: true,
+    };
   } catch (err) {
-    return errorHandler(err);
+    throw errorHandler(err);
   }
 }
 
 export async function createReview(data: CreateReviewData) {
-  try {
-    await ApiCreateReview(data);
+  "use server";
 
-    const redirectPath = `/movie/${data.movieId}`;
-    revalidatePath(redirectPath);
-    redirect(redirectPath);
+  try {
+    const newReview = await ApiCreateReview(data);
+
+    if (newReview?.success) {
+      const redirectPath = `/movie/${data.movieId}`;
+
+      revalidatePath(redirectPath);
+    }
+
+    return newReview;
   } catch (err) {
     console.error(err);
   }

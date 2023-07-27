@@ -1,12 +1,5 @@
-import { movieDBApi } from "@/lib/api";
 import { errorHandler } from "@/middleware/api/errorHandler";
 import { NextResponse } from "next/server";
-import {
-  IMDBMovieList,
-  MovieList,
-} from "../../../../services/controllers/movie/types";
-import { getPlaceholderImage } from "@/utils/transformImage";
-import { movieListSchema } from "@/services/controllers/movie/schema";
 import { MovieController } from "@/services/controllers/movie";
 
 export async function GET(request: Request) {

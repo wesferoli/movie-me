@@ -1,11 +1,11 @@
 "use client";
 
-import { createReview } from "@/services/actions";
 import Button from "@/components/Button";
 import { Form } from "@/components/Form";
 import { Rating } from "@/components/Rating";
 import { useTransition } from "react";
 import { useForm } from "react-hook-form";
+import { redirect } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateReviewData } from "@/services/controllers/review/types";
 import { createReviewData } from "@/services/controllers/review/schema";
@@ -13,11 +13,13 @@ import { createReviewData } from "@/services/controllers/review/schema";
 interface FormCreateReviewProps {
   userId: string;
   movieId: string;
+  createReview: (data: CreateReviewData) => Promise<any>;
 }
 
 export default function FormCreateReview({
   userId,
   movieId,
+  createReview,
 }: FormCreateReviewProps) {
   const [isPending, startTransition] = useTransition();
   const {
@@ -35,7 +37,13 @@ export default function FormCreateReview({
 
   function onSubmit(data: CreateReviewData) {
     startTransition(async () => {
-      await createReview(data);
+      const newReview = await createReview(data);
+
+      if (newReview?.success) {
+        const redirectPath = `/movie/${data.movieId}`;
+
+        redirect(redirectPath);
+      }
     });
   }
 

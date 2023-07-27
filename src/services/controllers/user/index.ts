@@ -3,9 +3,10 @@ import prisma from "@/lib/prisma";
 import { errorHandler } from "@/middleware/api/errorHandler";
 import { MDBMovieDetails } from "../movie/types";
 import { userReviewsListSchema } from "@/services/controllers/user/schema";
+import { cache } from "react";
 
 export const UserController = {
-  listReviews: async (userId: string) => {
+  listReviews: cache(async (userId: string) => {
     try {
       const userReviews = await prisma.review.findMany({ where: { userId } });
 
@@ -31,5 +32,5 @@ export const UserController = {
     } catch (err) {
       throw errorHandler(err);
     }
-  },
+  }),
 };

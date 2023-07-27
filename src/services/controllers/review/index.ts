@@ -6,8 +6,11 @@ import { reviewListSchema, reviewSchema } from "./schema";
 import { errorHandler } from "@/middleware/api/errorHandler";
 import { ReviewList } from "./types";
 
+import "server-only";
+import { cache } from "react";
+
 export const ReviewController = {
-  find: async (id: string) => {
+  find: cache(async (id: string) => {
     try {
       const review = await prisma.review.findUnique({
         where: { id },
@@ -45,7 +48,7 @@ export const ReviewController = {
     } catch (err) {
       throw errorHandler(err);
     }
-  },
+  }),
 
   listAll: async () => {
     try {

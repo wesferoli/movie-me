@@ -10,13 +10,17 @@ import { errorHandler } from "@/middleware/api/errorHandler";
 import { getPlaceholderImage } from "@/utils/transformImage";
 import { movieDetailsSchema, movieListSchema } from "./schema";
 import { reviewListSchema } from "../review/schema";
+import { cache } from "react";
+
+import "server-only";
 
 export const MovieController = {
-  listPopular: async (config?: RequestInit) => {
+  listPopular: cache(async (config?: RequestInit) => {
     try {
+      const oneDay = 86400;
       const popularMovies: IMDBMovieList = await movieDBApi.get(
         "/movie/popular",
-        config
+        { ...config, next: { revalidate: oneDay } }
       );
       if (!popularMovies) {
         throw new Error("Unable to list movies.");
@@ -43,9 +47,9 @@ export const MovieController = {
     } catch (err) {
       throw errorHandler(err);
     }
-  },
+  }),
 
-  find: async (movieId: string, config?: RequestInit) => {
+  find: cache(async (movieId: string, config?: RequestInit) => {
     try {
       const movie: MDBMovieDetails = await movieDBApi.get(
         `/movie/${movieId}?append_to_response=credits`,
@@ -76,9 +80,9 @@ export const MovieController = {
     } catch (err) {
       throw errorHandler(err);
     }
-  },
+  }),
 
-  listReviews: async (movieId: string) => {
+  listReviews: cache(async (movieId: string) => {
     try {
       const movieReview = await prisma.review.findMany({
         where: { movieId: Number(movieId) },
@@ -93,9 +97,9 @@ export const MovieController = {
     } catch (err) {
       throw errorHandler(err);
     }
-  },
+  }),
 
-  search: async (query: string) => {
+  search: cache(async (query: string) => {
     try {
       const movieList: IMDBMovieList = await movieDBApi.get(
         `/search/movie?query=${query}`
@@ -119,5 +123,5 @@ export const MovieController = {
     } catch (err) {
       throw errorHandler(err);
     }
-  },
+  }),
 };
