@@ -2,7 +2,7 @@ import {
   IMovieDetailsCast,
   IMovieDetailsCrew,
   IMovieDetailsGenres,
-} from "@/app/api/movie/[id]/types";
+} from "@/services/controllers/movie/types";
 
 interface IMovieInfoProps {
   title: string;

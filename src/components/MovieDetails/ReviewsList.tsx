@@ -1,5 +1,5 @@
+import { ReviewList } from "@/services/controllers/review/types";
 import ReviewCard from "../ReviewCard";
-import { ReviewList } from "@/app/api/review/types";
 import Link from "next/link";
 
 export interface IReviewsListProps {
