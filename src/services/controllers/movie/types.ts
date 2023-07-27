@@ -1,6 +1,23 @@
 import { z } from "zod";
+import { movieListSchema } from "./schema";
 import { movieDetailsSchema } from "./schema";
 
+interface IMDBMovie {
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: number[];
+  id: number;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  release_date: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+}
 interface MDBMovieDetailsCreditsCrew {
   adult: boolean;
   gender: number;
@@ -28,12 +45,10 @@ interface MDBMovieDetailsCreditsCast {
   credit_id: string;
   order: number;
 }
-
 interface MDBMovieDetailsCredits {
   cast: MDBMovieDetailsCreditsCast[];
   crew: MDBMovieDetailsCreditsCrew[];
 }
-
 interface MDBMovieDetailsSpokenLanguages {
   english_name: string;
   iso_639_1: string;
@@ -53,7 +68,6 @@ interface MDBMovieDetailsGenres {
   id: number;
   name: string;
 }
-
 export interface MDBMovieDetails {
   adult: boolean;
   backdrop_path: string;
@@ -82,10 +96,17 @@ export interface MDBMovieDetails {
   vote_count: number;
   credits: MDBMovieDetailsCredits;
 }
+export interface IMDBMovieList {
+  page: number;
+  results: IMDBMovie[];
+  total_pages: number;
+  total_results: number;
+}
 
 export interface IMovieDetails extends z.infer<typeof movieDetailsSchema> {
   rating: number | null;
 }
+export type MovieList = z.infer<typeof movieListSchema>;
 export type IMovieDetailsGenres = IMovieDetails["genres"];
 export type IMovieDetailsCast = IMovieDetails["cast"];
 export type IMovieDetailsCrew = IMovieDetails["crew"];

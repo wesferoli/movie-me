@@ -1,10 +1,8 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
-import { MovieList } from "@/app/api/movie/types";
-import { Review } from "@/app/api/review/[id]/types";
-import { ReviewList } from "@/app/api/review/types";
 import { IRouteParams } from "@/app/api/types";
 import MoviePoster from "@/components/MovieDetails/MoviePoster";
 import { api } from "@/lib/api";
+import { ReviewController } from "@/services/controllers/review";
 import generateRatingStars from "@/utils/rating";
 import { Star } from "lucide-react";
 import { getServerSession } from "next-auth";
@@ -15,9 +13,7 @@ type ReviewDetailParams = {
 } & IRouteParams;
 
 async function staticParams() {
-  const { data: reviewList } = await api
-    .get<{ data: ReviewList }>("/review")
-    .then((resp) => resp.data);
+  const reviewList = await ReviewController.listAll().then((resp) => resp.data);
 
   return reviewList.map((review) => {
     return { id: String(review.movieId), reviewId: review.id };
@@ -29,9 +25,9 @@ export const generateStaticParams =
 
 export default async function ReviewDetail({ params }: ReviewDetailParams) {
   const session = await getServerSession(authOptions);
-  const { data: review } = await api
-    .get<{ data: Review }>(`/review/${params.reviewId}`)
-    .then((resp) => resp.data);
+  const review = await ReviewController.find(params.reviewId).then(
+    (resp) => resp.data
+  );
 
   return (
     <div className="mx-4 my-8 max-w-[1136px] flex-grow rounded-lg border border-yellow-500 bg-neutral-700 p-2 sm:mx-10 sm:p-4 md:mx-10 md:p-10 lg:mx-24 lg:my-10 lg:p-10 xl:p-16">

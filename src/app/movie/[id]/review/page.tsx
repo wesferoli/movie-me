@@ -1,16 +1,17 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import { IRouteParams } from "@/app/api/types";
-import { getMovieDetails } from "@/services/api/movie";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
 import FormCreateReview from "./FormCreateReview";
+import { MovieController } from "@/services/controllers/movie";
+import { createReview } from "@/services/actions";
 
 export default async function CreateReview({ params }: IRouteParams) {
   const session = await getServerSession(authOptions);
   const userId = session?.user?.id as string;
   const movieId = params.id;
 
-  const { data: movie } = await getMovieDetails(params.id);
+  const movie = await MovieController.find(params.id).then((resp) => resp.data);
 
   return (
     <div className="mx-4 my-8 max-w-[1136px] flex-grow rounded-lg border border-yellow-500 bg-neutral-700 p-2 sm:mx-10 sm:p-4 md:mx-10 md:p-10 lg:mx-24 lg:my-10 lg:p-10 xl:p-16">
@@ -36,7 +37,12 @@ export default async function CreateReview({ params }: IRouteParams) {
           </div>
         </div>
       </div>
-      <FormCreateReview movieId={movieId} userId={userId} />
+
+      <FormCreateReview
+        movieId={movieId}
+        userId={userId}
+        createReview={createReview}
+      />
     </div>
   );
 }

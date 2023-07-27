@@ -1,4 +1,4 @@
-import { MovieList } from "@/app/api/movie/types";
+import { MovieList } from "@/services/controllers/movie/types";
 import { posterURL } from "./constant";
 import { getPlaiceholder } from "plaiceholder";
 import fs from "node:fs/promises";

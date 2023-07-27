@@ -1,9 +1,9 @@
 "use client";
 
-import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { Search } from "lucide-react";
 import { api } from "@/lib/api";
-import { MovieList } from "@/app/api/movie/types";
+import { MovieList } from "@/services/controllers/movie/types";
 import MovieSearchList from "./MovieSearchList";
 
 export default function SearchBar() {
@@ -15,8 +15,8 @@ export default function SearchBar() {
 
   const handleSearch = useCallback(async (query: string) => {
     if (query) {
-      const { data: movieList } = await api
-        .get<{ data: MovieList }>("/movie/search", { params: { query } })
+      const movieList: MovieList = await api
+        .get(`/movie/search?query=${query}`)
         .then((resp) => resp.data);
 
       setMovieSearch((state) => ({ search: state.search, movieList }));
