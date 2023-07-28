@@ -1,7 +1,5 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
-import { UserReviewList } from "@/services/controllers/user/types";
 import MyReviewList from "@/components/MyReviewList";
-import { api } from "@/lib/api";
 import { UserController } from "@/services/controllers/user";
 import { getServerSession } from "next-auth";
 
