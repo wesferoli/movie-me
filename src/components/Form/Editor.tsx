@@ -31,7 +31,7 @@ const MyEditor = ({ value, onChange }: MyEditorProps) => {
     editorProps: {
       attributes: {
         class:
-          "min-h-[120px] max-w-[80vw] sm:max-w-[90vw] md:max-w-[80vw] lg:max-w-[75vw]",
+          "min-h-[120px] max-w-[90vw] rounded-md bg-neutral-300 text-sm text-zinc-700 md:text-base sm:max-w-[90vw] md:max-w-[80vw] p-2 lg:max-w-[75vw] focus:border-2 focus:border-black focus:outline-none",
       },
     },
     content: value,
@@ -40,14 +40,7 @@ const MyEditor = ({ value, onChange }: MyEditorProps) => {
     },
   });
 
-  return (
-    <EditorContent
-      editor={editor}
-      as="textarea"
-      rows={6}
-      className="max-w-full rounded-md border border-neutral-700 bg-neutral-300 p-1 px-2 text-sm text-zinc-700 md:text-base"
-    />
-  );
+  return <EditorContent editor={editor} as="textarea" rows={6} />;
 };
 
 export const Editor = ({ ...rest }: EditorProps) => {
