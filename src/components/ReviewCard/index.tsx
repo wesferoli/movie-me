@@ -48,7 +48,9 @@ export default function ReviewCard({
           {rating}
         </span>
         {/* Show on desktop (md >) */}
-        <span className="hidden md:flex">{generateRatingStars(rating)}</span>
+        <span className="hidden min-w-[100px] md:flex">
+          {generateRatingStars(rating)}
+        </span>
       </div>
     </Link>
   );
