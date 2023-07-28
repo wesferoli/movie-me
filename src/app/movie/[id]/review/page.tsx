@@ -26,7 +26,7 @@ export default async function CreateReview({ params }: IRouteParams) {
           className="max-w-[160px] shadow-poster md:w-full md:max-w-[200px] xl:max-w-[225px] 2xl:max-w-[250px]"
         />
         <div className="sm:ml-4">
-          <h1 className="mt-2 text-center text-2xl font-bold text-yellow-500 drop-shadow-text sm:text-left md:text-left lg:text-3xl xl:text-4xl">
+          <h1 className="mt-2 text-center text-2xl font-bold text-yellow-500 drop-shadow-text sm:text-left lg:text-3xl xl:text-4xl">
             {movie.title}
           </h1>
           <div className="mt-1 flex items-center justify-center divide-x divide-yellow-400 text-xs font-semibold drop-shadow-text sm:justify-start md:mt-1 md:justify-start md:text-sm">
