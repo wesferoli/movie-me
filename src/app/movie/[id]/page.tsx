@@ -9,8 +9,6 @@ import { MovieController } from "@/services/controllers/movie";
 export const revalidate = 60; // revalidate after one minute
 
 export default async function MovieDetails({ params }: IRouteParams) {
-  const session = await getServerSession(authOptions);
-
   const movie = await MovieController.find(params.id).then((resp) => resp.data);
   const movieReviews = await MovieController.listReviews(params.id).then(
     (resp) => resp.data
@@ -24,7 +22,6 @@ export default async function MovieDetails({ params }: IRouteParams) {
           movieId={movie.id}
           poster={movie.poster}
           movieRating={movie.rating}
-          session={session}
         />
       </section>
       {/* Movie details */}

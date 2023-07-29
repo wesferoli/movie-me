@@ -8,6 +8,15 @@ import { createReview } from "@/services/actions";
 
 export default async function CreateReview({ params }: IRouteParams) {
   const session = await getServerSession(authOptions);
+  if (!session) {
+    throw new Error(
+      JSON.stringify({
+        type: "UnauthorizedError",
+        message: "You must be connected to see this content",
+      })
+    );
+  }
+
   const userId = session?.user?.id as string;
   const movieId = params.id;
 

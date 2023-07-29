@@ -24,7 +24,6 @@ export const generateStaticParams =
   process.env.NEXT_PUBLIC_NODE_ENV === "production" ? staticParams : undefined;
 
 export default async function ReviewDetail({ params }: ReviewDetailParams) {
-  const session = await getServerSession(authOptions);
   const review = await ReviewController.find(params.reviewId).then(
     (resp) => resp.data
   );
@@ -36,7 +35,6 @@ export default async function ReviewDetail({ params }: ReviewDetailParams) {
           <MoviePoster
             movieId={Number(params.id)}
             poster={review.movie.poster}
-            session={session}
           />
         </section>
         <section className="mt-2 w-full divide-y divide-yellow-500 md:mt-0">

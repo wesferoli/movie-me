@@ -5,6 +5,15 @@ import { getServerSession } from "next-auth";
 
 export default async function MyReviews() {
   const session = await getServerSession(authOptions);
+  if (!session) {
+    throw new Error(
+      JSON.stringify({
+        type: "UnauthorizedError",
+        message: "You must be connected to see this content",
+      })
+    );
+  }
+
   const userId = session?.user?.id as string;
 
   const reviewsList = await UserController.listReviews(userId).then(
