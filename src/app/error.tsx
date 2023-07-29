@@ -10,7 +10,7 @@ export default function Error({
   error: Error;
   reset: () => void;
 }) {
-  console.log(error);
+  console.error(error);
   console.log(error.message);
   const errorToObject = (() => {
     try {
