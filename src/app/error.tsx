@@ -10,12 +10,15 @@ export default function Error({
   error: Error;
   reset: () => void;
 }) {
-  console.error(error);
-  const errorToObject = JSON.parse(error.message) || {
-    type: "GenericError",
-    message: error.message,
-  };
-  console.log(errorToObject);
+  console.log(error);
+  console.log(error.message);
+  const errorToObject = (() => {
+    try {
+      return JSON.parse(error.message);
+    } catch (err) {
+      return { type: "GenericError", message: error.message };
+    }
+  })();
 
   return (
     <div className="mx-4 flex h-[80vh] flex-1 flex-col items-center justify-center text-center">
