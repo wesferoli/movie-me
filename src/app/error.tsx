@@ -2,7 +2,6 @@
 
 import { handleErrorMessage } from "@/lib/handleErrorMessage";
 import { signIn } from "next-auth/react";
-import Link from "next/link";
 
 export default function Error({
   error,
@@ -11,14 +10,12 @@ export default function Error({
   error: Error;
   reset: () => void;
 }) {
-  console.log(error);
-  const errorToObject = (() => {
-    try {
-      return JSON.parse(error.message);
-    } catch (err) {
-      return { type: "GenericError", message: error.message };
-    }
-  })();
+  console.error(error);
+  const errorToObject = JSON.parse(error.message) || {
+    type: "GenericError",
+    message: error.message,
+  };
+  console.log(errorToObject);
 
   return (
     <div className="mx-4 flex h-[80vh] flex-1 flex-col items-center justify-center text-center">
