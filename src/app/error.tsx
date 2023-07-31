@@ -2,7 +2,6 @@
 
 import { handleErrorMessage } from "@/lib/handleErrorMessage";
 import { signIn } from "next-auth/react";
-import Link from "next/link";
 
 export default function Error({
   error,
@@ -11,7 +10,8 @@ export default function Error({
   error: Error;
   reset: () => void;
 }) {
-  console.log(error);
+  console.error(error);
+  console.log(error.message);
   const errorToObject = (() => {
     try {
       return JSON.parse(error.message);

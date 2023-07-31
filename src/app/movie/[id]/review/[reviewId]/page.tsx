@@ -1,12 +1,10 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import { IRouteParams } from "@/app/api/types";
 import MoviePoster from "@/components/MovieDetails/MoviePoster";
-import { api } from "@/lib/api";
 import { ReviewController } from "@/services/controllers/review";
 import generateRatingStars from "@/utils/rating";
 import { Star } from "lucide-react";
-import { getServerSession } from "next-auth";
 import Image from "next/image";
+import DOMPurify from "isomorphic-dompurify";
 
 type ReviewDetailParams = {
   params: { reviewId: string };
@@ -70,7 +68,9 @@ export default async function ReviewDetail({ params }: ReviewDetailParams) {
           </div>
           <div className="pt-2">
             <span
-              dangerouslySetInnerHTML={{ __html: review.description }}
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(review.description),
+              }}
             ></span>
           </div>
         </section>
