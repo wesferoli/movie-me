@@ -56,6 +56,7 @@ export const reviewSchema = z
     description: z.string(),
     rating: z.number(),
     user: z.object({
+      id: z.string().uuid(),
       name: z.string(),
       avatarUrl: z.string(),
     }),
