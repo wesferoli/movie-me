@@ -31,9 +31,21 @@ async function ApiCreateReview(data: CreateReviewData) {
   }
 }
 
-export async function createReview(data: CreateReviewData) {
-  "use server";
+async function ApiDeleteReview(id: string) {
+  try {
+    const deletedReview = prisma.review.delete({ where: { id } });
 
+    return {
+      data: deletedReview,
+      message: "Review deleted!",
+      success: true,
+    };
+  } catch (err) {
+    throw errorHandler(err);
+  }
+}
+
+export async function createReview(data: CreateReviewData) {
   try {
     const newReview = await ApiCreateReview(data);
 
@@ -44,6 +56,22 @@ export async function createReview(data: CreateReviewData) {
     }
 
     return newReview;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function deleteReview(id: string) {
+  try {
+    const deletedReview = await ApiDeleteReview(id);
+
+    if (deletedReview.success) {
+      const redirectPath = "/user/reviews";
+
+      revalidatePath(redirectPath);
+    }
+
+    return deletedReview;
   } catch (err) {
     console.error(err);
   }
