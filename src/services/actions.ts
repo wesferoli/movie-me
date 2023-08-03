@@ -34,7 +34,7 @@ async function ApiCreateReview(data: CreateReviewData) {
 
 async function ApiDeleteReview(id: string) {
   try {
-    const deletedReview = prisma.review.delete({ where: { id } });
+    const deletedReview = await prisma.review.delete({ where: { id } });
 
     return {
       data: deletedReview,

@@ -3,16 +3,9 @@
 import Button from "@/components/Button";
 import { deleteReview } from "@/services/actions";
 import { Edit, Trash } from "lucide-react";
-import { redirect, useRouter } from "next/navigation";
 import { useTransition } from "react";
 
-export default function UserReviewActions({
-  reviewId,
-  movieId,
-}: {
-  reviewId: string;
-  movieId: string;
-}) {
+export default function UserReviewActions({ reviewId }: { reviewId: string }) {
   const [isPending, startTransition] = useTransition();
 
   function onDelete() {
