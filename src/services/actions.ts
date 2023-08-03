@@ -8,6 +8,7 @@ import { CreateReviewData } from "@/services/controllers/review/types";
 import { revalidatePath } from "next/cache";
 
 import "server-only";
+import { redirect } from "next/navigation";
 
 async function ApiCreateReview(data: CreateReviewData) {
   try {
@@ -63,16 +64,13 @@ export async function createReview(data: CreateReviewData) {
 
 export async function deleteReview(id: string) {
   try {
-    const deletedReview = await ApiDeleteReview(id);
-
-    if (deletedReview.success) {
-      const redirectPath = "/user/reviews";
-
-      revalidatePath(redirectPath);
-    }
-
-    return deletedReview;
+    await ApiDeleteReview(id);
   } catch (err) {
     console.error(err);
+    throw err;
   }
+
+  const redirectPath = "/user/reviews";
+  revalidatePath(redirectPath);
+  redirect(redirectPath);
 }

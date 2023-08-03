@@ -6,7 +6,7 @@ import { Edit, Trash } from "lucide-react";
 import { redirect, useRouter } from "next/navigation";
 import { useTransition } from "react";
 
-export default async function UserReviewActions({
+export default function UserReviewActions({
   reviewId,
   movieId,
 }: {
@@ -17,12 +17,7 @@ export default async function UserReviewActions({
 
   function onDelete() {
     startTransition(async () => {
-      const redirectPath = "/user/reviews";
-      const deletedReview = await deleteReview(reviewId);
-
-      if (deletedReview?.success) {
-        redirect(redirectPath);
-      }
+      await deleteReview(reviewId);
     });
   }
 
