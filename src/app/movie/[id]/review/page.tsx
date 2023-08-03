@@ -4,7 +4,6 @@ import { getServerSession } from "next-auth";
 import Image from "next/image";
 import FormCreateReview from "./FormCreateReview";
 import { MovieController } from "@/services/controllers/movie";
-import { createReview } from "@/services/actions";
 
 export default async function CreateReview({ params }: IRouteParams) {
   const session = await getServerSession(authOptions);
@@ -47,11 +46,7 @@ export default async function CreateReview({ params }: IRouteParams) {
         </div>
       </div>
 
-      <FormCreateReview
-        movieId={movieId}
-        userId={userId}
-        createReview={createReview}
-      />
+      <FormCreateReview movieId={movieId} userId={userId} />
     </div>
   );
 }

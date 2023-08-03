@@ -38,8 +38,8 @@ export default function MoviePoster({
       {!!movieRating && (
         <div className="mt-2 flex items-center justify-center">
           {generateRatingStars(movieRating)}
-          <span className="text-center text-sm font-medium lg:text-base">
-            - {movieRating.toFixed(2)}
+          <span className="ml-1 text-center text-sm font-medium lg:text-base">
+            {movieRating.toFixed(2)}
           </span>
         </div>
       )}

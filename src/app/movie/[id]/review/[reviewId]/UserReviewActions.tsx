@@ -4,8 +4,15 @@ import Button from "@/components/Button";
 import { deleteReview } from "@/services/actions";
 import { Edit, Trash } from "lucide-react";
 import { useTransition } from "react";
+import Link from "next/link";
 
-export default function UserReviewActions({ reviewId }: { reviewId: string }) {
+export default function UserReviewActions({
+  reviewId,
+  movieId,
+}: {
+  reviewId: string;
+  movieId: string;
+}) {
   const [isPending, startTransition] = useTransition();
 
   function onDelete() {
@@ -16,16 +23,17 @@ export default function UserReviewActions({ reviewId }: { reviewId: string }) {
 
   return (
     <>
-      {/* <Button
-        onClick={() => onEdit()}
-        icon={
-          <Edit className="mr-2 h-4 w-4 text-center text-sm lg:text-base" />
-        }
-        className="mt-2 min-w-[160px]"
-        variant="primary"
-      >
-        Edit
-      </Button> */}
+      <Link href={`/movie/${movieId}/review?editId=${reviewId}`}>
+        <Button
+          icon={
+            <Edit className="mr-2 h-4 w-4 text-center text-sm lg:text-base" />
+          }
+          className="mt-2 min-w-[160px]"
+          variant="primary"
+        >
+          Edit
+        </Button>
+      </Link>
       <Button
         onClick={onDelete}
         icon={
