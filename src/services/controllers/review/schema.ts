@@ -49,6 +49,39 @@ export const createReviewData = z
     return { ...review, description: cleanDescription };
   });
 
+export const editReviewData = z
+  .object({
+    id: z.string(),
+    title: z
+      .string({
+        errorMap: () => ({ message: "Field required" }),
+      })
+      .min(1, "Field required"),
+    description: z
+      .string({
+        errorMap: () => ({ message: "Field required" }),
+      })
+      .min(1, "Field required"),
+    rating: z
+      .string({ errorMap: () => ({ message: "Field required" }) })
+      .min(1, "Field required"),
+    userId: z
+      .string({
+        errorMap: () => ({ message: "Field required" }),
+      })
+      .min(1, "Field required"),
+    movieId: z
+      .number({
+        errorMap: () => ({ message: "Field required" }),
+      })
+      .min(1, "Field required"),
+  })
+  .transform((review) => {
+    const cleanDescription = DOMPurify.sanitize(review.description);
+
+    return { ...review, description: cleanDescription };
+  });
+
 export const reviewSchema = z
   .object({
     id: z.string(),

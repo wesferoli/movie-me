@@ -6,8 +6,8 @@ import React, { ComponentProps, RefCallback, useState } from "react";
 interface RatingProps extends ComponentProps<"input"> {}
 
 export const Rating = React.forwardRef<HTMLInputElement, RatingProps>(
-  ({ ...rest }, ref) => {
-    const [rating, setRating] = useState(0);
+  ({ value, ...rest }, ref) => {
+    const [rating, setRating] = useState(Number(value));
     const [hoveredElement, setHoveredElement] = useState(0);
 
     return (
