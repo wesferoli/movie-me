@@ -42,9 +42,7 @@ export default async function ReviewDetail({ params }: ReviewDetailParams) {
             movieId={Number(params.id)}
             poster={review.movie.poster}
           />
-          {isUserReview && (
-            <UserReviewActions reviewId={params.reviewId} movieId={params.id} />
-          )}
+          {isUserReview && <UserReviewActions reviewId={params.reviewId} />}
         </section>
         <section className="mt-2 w-full divide-y divide-yellow-500 md:mt-0">
           <div className="py-2 md:py-0 md:pb-2">
