@@ -37,11 +37,19 @@ async function fetchWrapper(
 }
 
 export const movieDBApi = {
-  get: async (endpoint: string, customConfig: RequestInit = {}) => {
-    return await fetchWrapper(endpoint, movieDBApiUrl, {
-      ...customConfig,
-      headers: { Authorization: `Bearer ${movieDBToken}` },
-    });
+  get: async (
+    endpoint: string,
+    customConfig: RequestInit = {},
+    params?: string[]
+  ) => {
+    return await fetchWrapper(
+      `${endpoint}?language=pt-BR&${params?.join("&")}`,
+      movieDBApiUrl,
+      {
+        ...customConfig,
+        headers: { Authorization: `Bearer ${movieDBToken}` },
+      }
+    );
   },
 };
 

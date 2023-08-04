@@ -51,7 +51,7 @@ export default function MoviePoster({
         className="mt-2 min-w-[160px]"
         variant="primary"
       >
-        Add review
+        Adicionar review
       </Button>
     </div>
   );

@@ -67,7 +67,7 @@ export default function SearchBar() {
           <input
             name="search"
             type="text"
-            placeholder="Search a title"
+            placeholder="Procure um título"
             className="h-8 w-full justify-self-center rounded-full px-3 text-black placeholder:text-gray-200 focus:border-2 focus:border-gray-200 focus:outline-none"
             onChange={onChange}
             onBlur={() => closeMovieSearch()}
@@ -81,7 +81,7 @@ export default function SearchBar() {
         <input
           name="search"
           type="text"
-          placeholder="Search a title"
+          placeholder="Procure um título"
           className="hidden h-8 w-[80%] justify-self-center rounded-full px-4 text-sm text-black placeholder:text-gray-200 focus:border-2 focus:border-gray-200 focus:outline-none sm:inline md:h-10 md:text-base xl:w-2/3"
           onChange={onChange}
           onBlur={() => closeMovieSearch()}

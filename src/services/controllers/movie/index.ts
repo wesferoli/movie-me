@@ -52,8 +52,9 @@ export const MovieController = {
   find: cache(async (movieId: string, config?: RequestInit) => {
     try {
       const movie: MDBMovieDetails = await movieDBApi.get(
-        `/movie/${movieId}?append_to_response=credits`,
-        config
+        `/movie/${movieId}`,
+        config,
+        ["append_to_response=credits"]
       );
 
       const filteredMovieDetails = movieDetailsSchema.parse(movie);
@@ -102,7 +103,9 @@ export const MovieController = {
   search: cache(async (query: string) => {
     try {
       const movieList: IMDBMovieList = await movieDBApi.get(
-        `/search/movie?query=${query}`
+        "/search/movie",
+        {},
+        [`query=${query}`]
       );
 
       const filterMovies: MovieList = movieListSchema.parse(movieList.results);

@@ -32,12 +32,12 @@ export default function ReviewsList({
         </>
       ) : (
         <span className="drop-shadow-text">
-          No reviews were made yet.{" "}
+          Nenhuma review até o momento.{" "}
           <Link
             href={`/movie/${movieId}/review`}
             className="font-semibold text-yellow-600"
           >
-            Add one yourself
+            Adicione uma
           </Link>
           !
         </span>
