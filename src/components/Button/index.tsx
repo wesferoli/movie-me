@@ -13,7 +13,8 @@ export const variants = {
   danger:
     "rounded-full border border-black bg-red-500 text-sm font-medium text-neutral-50 lg:text-base hover:bg-red-600",
 };
-const baseStyle = "flex items-center py-1.5 px-3 justify-center text-center";
+const baseStyle =
+  "flex items-center py-1.5 px-3 justify-center text-center disabled:bg-zinc-300 disabled:cursor-not-allowed disabled:opacity-50";
 
 export default function Button({
   children,

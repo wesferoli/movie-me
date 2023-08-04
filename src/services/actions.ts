@@ -83,7 +83,7 @@ export async function createReview(data: CreateReviewData) {
     const newReview = await ApiCreateReview(data);
 
     if (newReview?.success) {
-      const redirectPath = `/movie/${data.movieId}`;
+      const redirectPath = "/movie/[id]";
 
       revalidatePath(redirectPath);
     }
@@ -112,13 +112,11 @@ export async function editReview(data: EditReviewData) {
 
 export async function deleteReview(id: string) {
   try {
-    await ApiDeleteReview(id);
+    const deletedReview = await ApiDeleteReview(id);
+
+    return deletedReview;
   } catch (err) {
     console.error(err);
     throw err;
   }
-
-  const redirectPath = "/user/reviews";
-  revalidatePath(redirectPath);
-  redirect(redirectPath);
 }

@@ -5,6 +5,9 @@ import { deleteReview } from "@/services/actions";
 import { Edit, Trash } from "lucide-react";
 import { useTransition } from "react";
 import Link from "next/link";
+import { toast } from "react-toastify";
+import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 export default function UserReviewActions({
   reviewId,
@@ -17,7 +20,17 @@ export default function UserReviewActions({
 
   function onDelete() {
     startTransition(async () => {
-      await deleteReview(reviewId);
+      const deletedReview = await deleteReview(reviewId);
+
+      if (deletedReview?.success) {
+        const message = "Review excluída com sucesso!";
+        toast(message, {
+          progressStyle: { background: "#22c55e" },
+        });
+
+        const redirectPath = "/user/reviews";
+        redirect(redirectPath);
+      }
     });
   }
 
