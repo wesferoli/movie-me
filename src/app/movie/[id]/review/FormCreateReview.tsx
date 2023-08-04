@@ -12,6 +12,7 @@ import { createReviewData } from "@/services/controllers/review/schema";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import { editReview, createReview } from "@/services/actions";
+import { toast } from "react-toastify";
 
 interface FormCreateReviewProps {
   userId: string;
@@ -57,12 +58,19 @@ export default function FormCreateReview({
 
   function onSubmit(data: CreateReviewData) {
     startTransition(async () => {
-      const newReview = !!editId
+      const newReview = editId
         ? await editReview({ id: editId, ...data })
         : await createReview(data);
 
+      const message = editId
+        ? "Review editada com sucesso!"
+        : "Review criada com sucesso!";
+
       if (newReview?.success) {
-        const redirectPath = `/movie/${data.movieId}`;
+        toast(message, {
+          progressStyle: { background: "#22c55e" },
+        });
+        const redirectPath = `/movie/${data.movieId}/review/${newReview.data.id}`;
 
         redirect(redirectPath);
       }
