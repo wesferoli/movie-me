@@ -83,7 +83,7 @@ export default function FormCreateReview({
       className="mt-2 space-y-2 md:mt-4"
     >
       <Form.Group>
-        <Form.Label>Rating</Form.Label>
+        <Form.Label>Avaliação</Form.Label>
         <Rating
           {...register("rating", { required: true })}
           value={getValues("rating")}
@@ -93,18 +93,19 @@ export default function FormCreateReview({
         </span>
       </Form.Group>
       <Form.Group>
-        <Form.Label htmlFor="title-input">Title</Form.Label>
+        <Form.Label htmlFor="title-input">Título</Form.Label>
         <Form.Input
           {...register("title", { required: true })}
           type="text"
           id="title-input"
+          placeholder="Título da review"
         />
         <span className="text-sm text-red-500">
           {errors.title && errors.title.message}
         </span>
       </Form.Group>
       <Form.Group>
-        <Form.Label htmlFor="description-input">Description</Form.Label>
+        <Form.Label htmlFor="description-input">Descrição</Form.Label>
         <Form.Editor
           name="description"
           control={control}
@@ -120,7 +121,7 @@ export default function FormCreateReview({
           disabled={isPending}
           variant="primary"
         >
-          {editId ? "Edit" : "Create"}
+          {editId ? "Editar" : "Adicionar"}
         </Button>
       </div>
     </Form.Wrapper>

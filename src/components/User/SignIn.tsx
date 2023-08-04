@@ -14,7 +14,7 @@ export default function SignIn() {
           <Github className="h-4 w-4 text-neutral-50 md:h-6 md:w-6" />
         </div>
         <span className="hidden text-xs font-semibold text-neutral-900 md:inline md:text-sm">
-          Sign in
+          Conectar
         </span>
       </button>
     </div>

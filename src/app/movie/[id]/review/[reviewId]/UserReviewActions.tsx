@@ -44,7 +44,7 @@ export default function UserReviewActions({
           className="mt-2 min-w-[160px]"
           variant="primary"
         >
-          Edit
+          Editar
         </Button>
       </Link>
       <Button
@@ -56,7 +56,7 @@ export default function UserReviewActions({
         variant="danger"
         disabled={isPending}
       >
-        Delete
+        Excluir
       </Button>
     </>
   );

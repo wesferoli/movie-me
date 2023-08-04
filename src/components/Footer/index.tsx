@@ -24,7 +24,7 @@ export default function Footer() {
         </div>
         <div className="flex items-center justify-center py-4 sm:col-span-4 sm:px-4">
           <span className="text-center" data-testid="icons-credits">
-            Icons created by{" "}
+            Icones criados por{" "}
             <a
               href="https://www.flaticon.com/authors/freepik"
               title="movie icons"
@@ -37,7 +37,7 @@ export default function Footer() {
         </div>
         <div className="flex items-center justify-center py-4 sm:col-span-2 sm:px-4">
           <span className="text-center" data-testid="see-on-github">
-            See this project on{" "}
+            Veja esse projeto no{" "}
             <a
               href="https://github.com/wesferoli/movie-me"
               className="font-semibold text-yellow-500"
