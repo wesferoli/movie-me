@@ -44,13 +44,13 @@ export default function MovieInfo({
       {/* Cast and crew */}
       <div className="space-y-1 pt-2 drop-shadow-text md:pt-3">
         <div className="space-y-1">
-          <b className="font-semibold text-yellow-600">Cast</b>
+          <b className="font-semibold text-yellow-600">Elenco</b>
           <p className="text-sm text-neutral-50 lg:text-base">
             {cast.map((cast) => cast.name).join(", ")}
           </p>
         </div>
         <div className="space-y-1">
-          <b className="font-semibold text-yellow-600">Crew</b>
+          <b className="font-semibold text-yellow-600">Equipe</b>
           <p className="text-sm text-neutral-50 lg:text-base">
             {crew.map((crew) => crew.name).join(", ")}
           </p>
