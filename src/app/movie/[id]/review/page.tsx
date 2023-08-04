@@ -4,16 +4,18 @@ import { getServerSession } from "next-auth";
 import Image from "next/image";
 import FormCreateReview from "./FormCreateReview";
 import { MovieController } from "@/services/controllers/movie";
+import { redirect } from "next/navigation";
 
 export default async function CreateReview({ params }: IRouteParams) {
   const session = await getServerSession(authOptions);
   if (!session) {
-    throw new Error(
-      JSON.stringify({
-        type: "UnauthorizedError",
-        message: "You must be connected to see this content",
-      })
-    );
+    redirect("/");
+    // throw new Error(
+    //   JSON.stringify({
+    //     type: "UnauthorizedError",
+    //     message: "You must be connected to see this content",
+    //   })
+    // );
   }
 
   const userId = session?.user?.id as string;

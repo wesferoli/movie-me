@@ -41,6 +41,7 @@ export default async function ReviewDetail({ params }: ReviewDetailParams) {
           <MoviePoster
             movieId={Number(params.id)}
             poster={review.movie.poster}
+            session={session}
           />
           {isUserReview && (
             <UserReviewActions reviewId={params.reviewId} movieId={params.id} />

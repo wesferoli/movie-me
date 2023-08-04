@@ -7,6 +7,7 @@ import { signIn } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Button from "../Button";
+import { redirect } from "next/navigation";
 
 interface IMoviePosterProps {
   poster: {
@@ -15,14 +16,24 @@ interface IMoviePosterProps {
   };
   movieRating?: number | null;
   movieId: number;
+  session: Session | null;
 }
 
 export default function MoviePoster({
   poster,
   movieRating,
   movieId,
+  session,
 }: IMoviePosterProps) {
   const router = useRouter();
+
+  function handleNavigation(session: Session | null, movieId: number) {
+    if (!session) {
+      signIn("github");
+    } else {
+      router.push(`/movie/${movieId}/review`);
+    }
+  }
 
   return (
     <div className="flex flex-col items-center justify-center md:justify-start">
@@ -44,7 +55,7 @@ export default function MoviePoster({
         </div>
       )}
       <Button
-        onClick={() => router.push(`/movie/${movieId}/review`)}
+        onClick={() => handleNavigation(session, movieId)}
         icon={
           <Plus className="mr-2 h-4 w-4 text-center text-sm lg:text-base" />
         }
