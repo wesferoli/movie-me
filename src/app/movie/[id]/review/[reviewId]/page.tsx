@@ -14,17 +14,6 @@ type ReviewDetailParams = {
   params: { reviewId: string };
 } & IRouteParams;
 
-async function staticParams() {
-  const reviewList = await ReviewController.listAll().then((resp) => resp.data);
-
-  return reviewList.map((review) => {
-    return { id: String(review.movieId), reviewId: review.id };
-  });
-}
-
-export const generateStaticParams =
-  process.env.NEXT_PUBLIC_NODE_ENV === "production" ? staticParams : undefined;
-
 export default async function ReviewDetail({ params }: ReviewDetailParams) {
   const session = await getServerSession(authOptions);
   const review = await ReviewController.find(params.reviewId).then(
@@ -43,9 +32,9 @@ export default async function ReviewDetail({ params }: ReviewDetailParams) {
             poster={review.movie.poster}
             session={session}
           />
-          {/* {isUserReview && (
+          {isUserReview && (
             <UserReviewActions reviewId={params.reviewId} movieId={params.id} />
-          )} */}
+          )}
         </section>
         <section className="mt-2 w-full divide-y divide-yellow-500 md:mt-0">
           <div className="py-2 md:py-0 md:pb-2">
